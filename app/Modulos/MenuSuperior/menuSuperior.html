@@ -1,0 +1,199 @@
+<div ng-controller="MenuSuperiorControlador as menuSuperiorCtrl">
+    <div class="topsuperior">
+        <div class="menuSuperior" style="padding: 10px;">
+            <div class="col-sm-3">
+                <img src="img/temas/dark/jcLogo.jpg" style="height: 60px; width: 100%">
+            </div>
+            <div class="col-sm-7" style="margin-top: 15px">
+                <div class="form-group">
+                    <div class="input-group margin-bottom-sm">
+                        <input class="form-control" style="height: 30px"
+                               type="text" placeholder="Buscar Producto"
+                               ng-model="tablaCtrl.busqueda">
+                        <span class="input-group-addon"  style="height: 30px">
+                            <i class="ixs ixs-buscar"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2" style="margin-top: 15px">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle clickable"
+                       ng-mouseover="menuSuperiorCtrl.hola()"
+                       data-toggle="dropdown" data-hover="dropdown"
+                       data-delay="10" data-close-others="false">
+                        <img  class="img-menu-superior-usuario"
+                              ng-src="img/temas/{{$root.cssTema}}/usuario.svg">
+                        {{menuSuperiorCtrl.usuario.nombre}}
+                        <b class="caret caret1"></b>
+                    </a>
+                    <ul class="dropdown-menu bordeInferiorMenuUsuario"
+                        style="width: 400px; border-bottom: 5px inset #33458B;">
+                        <li class="titulo-datos-generales-usuario">
+                            <strong>{{'MISDATOSGENERAL' }}</strong>
+                        </li>
+                        <li style="margin-top: -5px;">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <i class="ixs " style="margin-left: 5%;">
+                                        <img ng-if="menuSuperiorCtrl.usuario.foto"
+                                             ng-src="{{menuSuperiorCtrl.urlFoto+menuSuperiorCtrl.usuario.foto}}{{menuSuperiorCtrl.elevaVersion}}"
+                                             class="datos-generales-usuario-foto">
+                                        <img ng-if="!menuSuperiorCtrl.usuario.foto"
+                                             ng-src="img/sinFoto.png"
+                                             class="datos-generales-usuario-foto">
+                                    </i>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="datos-generales-usuario-texto" style="margin-bottom: -6px">
+                                        <img class="img-menu-superior-usuario" ng-src="img/temas/{{$root.cssTema}}/datos-usuario-nombre.svg">
+                                        {{menuSuperiorCtrl.usuario.nombre}}
+                                    </div>
+                                    <div class="datos-generales-usuario-texto" style="margin-left: 10%; margin-bottom: -6px">
+                                        {{menuSuperiorCtrl.usuario.nomOficina}}
+                                    </div>
+                                    <div class="datos-generales-usuario-texto" style="margin-left: 10%">
+                                        {{menuSuperiorCtrl.usuario.descrLovFuncionLaboral}}
+                                    </div>
+                                    <div class="datos-generales-usuario-texto"
+                                         ng-if="menuSuperiorCtrl.usuario.fecNac">
+                                        <img class="img-menu-superior-usuario" ng-src="img/temas/{{$root.cssTema}}/datos-usuario-cumple.svg">
+                                        {{menuSuperiorCtrl.usuario.fecNac }}
+                                    </div>
+                                    <div class="datos-generales-usuario-texto" style="font-size: 10px !important;">
+                                        <img class="img-menu-superior-usuario" ng-src="img/temas/{{$root.cssTema}}/datos-usuario-correo.svg">
+                                        {{menuSuperiorCtrl.usuario.eMail}}
+                                    </div>
+                                    <div class="datos-generales-usuario-texto"
+                                         ng-if="menuSuperiorCtrl.usuario.telefonoDirecto">
+                                        <img class="img-menu-superior-usuario" ng-src="img/temas/{{$root.cssTema}}/datos-usuario-telefono.svg">
+                                        {{menuSuperiorCtrl.usuario.telefonoDirecto}}<span
+                                            ng-if="menuSuperiorCtrl.usuario.extension">&nbsp;Ext:{{menuSuperiorCtrl.usuario.extension}}</span>
+                                    </div>
+                                    <div class="datos-generales-usuario-texto"
+                                         ng-if="menuSuperiorCtrl.usuario.telefonoCelular">
+                                        <img class="img-menu-superior-usuario" ng-src="img/temas/{{$root.cssTema}}/datos-usuario-celular.svg">
+                                        {{menuSuperiorCtrl.usuario.telefonoCelular}}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                        <li class="divider dividerPerfectBlue"></li>
+                        <li ng-click="$event.stopPropagation();" class="ayudaSeccion">
+                            <span style="color:black; margin-left: 5%;">{{'TIPOMENUMISDATOS'}}</span>
+                            <div ng-click="$event.stopPropagation();" class="text-primary"
+                                 ng-class="{'btnMenusTres': menuSuperiorCtrl.usuario.indCliente == 'S',
+                                                    'btnMenusCuatro': menuSuperiorCtrl.usuario.indCliente != 'S'}"
+                                 style="margin-left: 5% !important;">
+                                <div ng-if="menuSuperiorCtrl.usuario.indCliente != 'S'">
+                                    <img class="botonesTipoMenu"
+                                         ng-click="menuSuperiorCtrl.modificarMenuUsuarioSesion('T')"
+                                         ng-if="menuSuperiorCtrl.usuario.indTipoMenuDefault != 'T'" tooltip
+                                         data-toggle="[tooltip]" title="{{'MENUTRAMISDATOS'}}"
+                                         ng-src="img/temas/{{$root.cssTema}}/menuTradicionalMisDatosOFF.svg"
+                                         style="width: 50px;height: 50px; padding: 2px; cursor: pointer">
+                                    <img class="botonesTipoMenu"
+                                         ng-if="menuSuperiorCtrl.usuario.indTipoMenuDefault == 'T'" tooltip
+                                         data-toggle="[tooltip]" title="{{'MENUTRAMISDATOS'}}"
+                                         ng-src="img/temas/{{$root.cssTema}}/menuTradicionalMisDatosON.svg"
+                                         style="width: 50px;height: 50px; padding: 2px; border-bottom: solid 3px red">
+                                </div>
+                                <div ng-if="menuSuperiorCtrl.usuario.indCliente == 'S'">
+                                    <img class="botonesTipoMenu"
+                                         ng-click="menuSuperiorCtrl.modificarMenuUsuarioSesion('T')"
+                                         ng-if="menuSuperiorCtrl.usuario.indTipoMenuDefault != 'T'" tooltip
+                                         data-toggle="[tooltip]" title="{{'PORTALCLIENTE' }}"
+                                         ng-src="img/temas/{{$root.cssTema}}/menuMetricasOFF.svg"
+                                         style="width: 50px;height: 50px; padding: 2px; cursor: pointer">
+                                    <img class="botonesTipoMenu"
+                                         ng-if="menuSuperiorCtrl.usuario.indTipoMenuDefault == 'T'" tooltip
+                                         data-toggle="[tooltip]" title="{{'PORTALCLIENTE'}}"
+                                         ng-src="img/temas/{{$root.cssTema}}/menuMetricasON.svg"
+                                         style="width: 50px;height: 50px; padding: 2px; border-bottom: solid 3px red">
+                                </div>
+                            </div>
+                            <div ng-click="$event.stopPropagation();" class="text-primary"
+                                 ng-class="{'btnMenusTres': menuSuperiorCtrl.usuario.indCliente == 'S',
+                                                    'btnMenusCuatro': menuSuperiorCtrl.usuario.indCliente != 'S'}">
+                                <img class="botonesTipoMenu"
+                                     ng-click="menuSuperiorCtrl.modificarMenuUsuarioSesion('E')"
+                                     ng-if="menuSuperiorCtrl.usuario.indTipoMenuDefault != 'E'" tooltip
+                                     data-toggle="[tooltip]" title="{{'MENUMAPAMISDATOS' }}"
+                                     ng-src="img/temas/{{$root.cssTema}}/menuMapaMisDatosOFF.svg"
+                                     style="width: 50px;height: 50px; padding: 2px; cursor: pointer">
+                                <img class="botonesTipoMenu"
+                                     ng-if="menuSuperiorCtrl.usuario.indTipoMenuDefault == 'E'" tooltip
+                                     data-toggle="[tooltip]" title="{{'MENUMAPAMISDATOS' }}"
+                                     ng-src="img/temas/{{$root.cssTema}}/menuMapaMisDatosON.svg"
+                                     style="width: 50px;height: 50px; padding: 2px; border-bottom: solid 3px red">
+                            </div>
+                            <div ng-click="$event.stopPropagation();" class="text-primary"
+                                 ng-class="{'btnMenusTres': menuSuperiorCtrl.usuario.indCliente == 'S',
+                                                    'btnMenusCuatro': menuSuperiorCtrl.usuario.indCliente != 'S'}">
+                                <img class="botonesTipoMenu"
+                                     ng-click="menuSuperiorCtrl.modificarMenuUsuarioSesion('D')"
+                                     ng-if="menuSuperiorCtrl.usuario.indTipoMenuDefault != 'D'" tooltip
+                                     data-toggle="[tooltip]" title="{{'MENUACCESOSMISDATOS' }}"
+                                     ng-src="img/temas/{{$root.cssTema}}/menuDirectoMisDatosOFF.svg"
+                                     style="width: 50px;height: 50px; padding: 2px; cursor: pointer">
+                                <img class="botonesTipoMenu"
+                                     ng-if="menuSuperiorCtrl.usuario.indTipoMenuDefault == 'D'" tooltip
+                                     data-toggle="[tooltip]" title="{{'MENUACCESOSMISDATOS' }}"
+                                     ng-src="img/temas/{{$root.cssTema}}/menuDirectoMisDatosON.svg"
+                                     style="width: 50px;height: 50px; padding: 2px; border-bottom: solid 3px red">
+                            </div>
+                            <!--Metricas-->
+                            <div ng-click="$event.stopPropagation();" class="text-primary"
+                                 ng-class="{'btnMenusTres': menuSuperiorCtrl.usuario.indCliente == 'S',
+                                                    'btnMenusCuatro': menuSuperiorCtrl.usuario.indCliente != 'S'}"
+                                 ng-if="menuSuperiorCtrl.usuario.indCliente != 'S'">
+                                <img class="botonesTipoMenu"
+                                     ng-click="menuSuperiorCtrl.modificarMenuUsuarioSesion('M')"
+                                     ng-if="menuSuperiorCtrl.usuario.indTipoMenuDefault != 'M'" tooltip
+                                     data-toggle="[tooltip]" title="{{'MENUMETRICAS' }}"
+                                     ng-src="img/temas/{{$root.cssTema}}/menuMetricasOFF.svg"
+                                     style="width: 50px;height: 50px; padding: 2px; cursor: pointer">
+                                <img class="botonesTipoMenu"
+                                     ng-if="menuSuperiorCtrl.usuario.indTipoMenuDefault == 'M'" tooltip
+                                     data-toggle="[tooltip]" title="{{'MENUMETRICAS' }}"
+                                     ng-src="img/temas/{{$root.cssTema}}/menuMetricasON.svg"
+                                     style="width: 50px;height: 50px; padding: 2px; border-bottom: solid 3px red">
+                            </div>
+                        </li>
+
+                        <li class="divider dividerPerfectBlue"></li>
+                        <li ng-if="menuSuperiorCtrl.usuario.fechaVenceAcceso != null">
+                            <label style="color: black; padding-left: 19px; padding-top: 5px;">
+                                <i class="ixs ixs-reloj"></i>
+                                Expiración: {{menuSuperiorCtrl.usuario.fechaVenceAcceso }}
+                            </label>
+
+                        </li>
+
+                        <li class="divider dividerPerfectBlue" ng-if="menuSuperiorCtrl.usuario.fechaVenceAcceso != null"></li>
+                        <li ng-if="menuSuperiorCtrl.usuario.cambioClave == 'S'" style="cursor: pointer">
+                            <label ng-click="menuSuperiorCtrl.mostrarModal('cambClv')" class="opcion-datos-usuario-accion">
+                                <i class="ixs ixs-candadoAbierto"></i>
+                                Cambiar contraseña
+                            </label>
+                        </li>
+
+                        <li class="divider dividerPerfectBlue"></li>
+                        <li class="clickable ayudaSeccion marginInferior tamanioAyuda">
+                            <img class="img-acerca-easpayb" ng-src="img/temas/{{$root.cssTema}}/acerca-easpayb.svg">
+                            <label ng-click="menuSuperiorCtrl.mostrarModal('acercaEaspayb')" class="opcion-datos-usuario-accion textoAyuda">
+                                Acerca de
+                            </label>
+                        </li>
+                    </ul>
+
+
+                </li>
+
+                <i class="ixs-2x ixs-usuario"></i>
+            </div>
+        </div>
+    </div>
+</div>

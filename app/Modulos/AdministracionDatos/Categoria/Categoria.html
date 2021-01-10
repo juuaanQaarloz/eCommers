@@ -1,0 +1,32 @@
+<div class="row" style="padding: 1%" ng-controller="Categoria as categoriaCtrl">
+
+    <div class="col-sm-12" >
+        <xs-tabla icono="personas" titulo="Categorias"
+                  config="categoriaCtrl.tblCategorias"
+                  datos="categoriaCtrl.categorias"
+                  registro-seleccionado="categoriaCtrl.categoriaSeleccionado"
+                  seleccionar-registro="categoriaCtrl.seleccionarCategoria(registro)"
+                  detalle-interno="true">
+            <div class="row" style="padding: 2%">
+                <div class="col-sm-12" >
+                    <xs-tabla icono="personas" titulo="Productos"
+                              config="categoriaCtrl.tblCategoriaProducto"
+                              datos="categoriaCtrl.productos"
+                              registro-seleccionado="categoriaCtrl.catProductoSeleccionado"
+                              seleccionar-registro="categoriaCtrl.seleccionarCatProducto(registro)"
+                              detalle-interno="true">
+                        <div class="row" style="padding: 2%">
+                            {{categoriaCtrl.catProductoSeleccionado}}
+                        </div>
+                    </xs-tabla>
+                </div>
+            </div>
+        </xs-tabla>
+    </div>
+
+    <div ng-include="'Modulos/AdministracionDatos/Usuario/modals/usuarioA.html'"></div>
+    <div ng-include="'Modulos/AdministracionDatos/Usuario/modals/usuarioB.html'"></div>
+    <div ng-include="'Modulos/AdministracionDatos/Usuario/modals/usuarioM.html'"></div>
+
+
+</div>

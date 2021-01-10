@@ -1,0 +1,23 @@
+<div class="row" style="padding: 1%" ng-controller="Usuario as usuarioCtrl">
+    <div class="col-sm-12" >
+        <xs-tabla icono="personas" titulo="Usuarios"
+                  config="usuarioCtrl.tblUsuarios"
+                  datos="usuarioCtrl.usuarios"
+                  registro-seleccionado="usuarioCtrl.usuarioSeleccionado"
+                  seleccionar-registro="usuarioCtrl.seleccionarUsuario(registro)"
+                  detalle-interno="true">
+            <div class="row" style="padding: 2%">
+                {{usuarioCtrl.usuarioSeleccionado}}
+            </div>
+        </xs-tabla>
+    </div>
+
+    <div ng-include="'Modulos/AdministracionDatos/Usuario/modals/usuarioA.html'"></div>
+    <div ng-include="'Modulos/AdministracionDatos/Usuario/modals/usuarioB.html'"></div>
+    <div ng-include="'Modulos/AdministracionDatos/Usuario/modals/usuarioM.html'"></div>
+
+    <div ng-include="'Modulos/AdministracionDatos/Usuario/modals/direccionA.html'"></div>
+    <div ng-include="'Modulos/AdministracionDatos/Usuario/modals/direccionM.html'"></div>
+    <div ng-include="'Modulos/AdministracionDatos/Usuario/modals/direccionB.html'"></div>
+
+</div>

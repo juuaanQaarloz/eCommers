@@ -6,7 +6,7 @@
 (function () {
     'use strict';
 
-    angular.module('eAspayb').factory('alertasServicios', alertasServicios);
+    angular.module('eCommers').factory('alertasServicios', alertasServicios);
     alertasServicios.$inject = ['$rootScope', '$log', '$timeout', '$window', 'toastr', 'notificacion'];
 
     /* @ngInject */

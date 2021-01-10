@@ -4,7 +4,7 @@
      */
     'use strict';
 
-    angular.module('eAspayb').factory('tablaServicios', tablaServicios);
+    angular.module('eCommers').factory('tablaServicios', tablaServicios);
     tablaServicios.$inject = ['$log', '$translate', '$filter'];
 
     /* @ngInject */

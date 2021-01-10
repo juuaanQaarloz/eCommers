@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    angular.module('eAspayb').factory('notificacion', notificacion);
+    angular.module('eCommers').factory('notificacion', notificacion);
     notificacion.$inject = ['toastr'];
 
 function notificacion(toastr) {

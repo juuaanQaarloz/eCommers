@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-  <html lang="es" ng-app="eAspayb">
+  <html lang="es" ng-app="eCommers">
   <!--[if lt IE 7]>      <html lang="es" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
   <!--[if IE 7]>         <html lang="es" class="no-js lt-ie9 lt-ie8"> <![endif]-->
   <!--[if IE 8]>         <html lang="es" class="no-js lt-ie9"> <![endif]-->
@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Control de Asistencia Escolar</title>
+    <title>eCommers</title>
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
     <link rel="stylesheet" href="css/xs-icon/style.css"/>
     <!-- Librerias -->
@@ -17,25 +17,25 @@
 
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
 
-
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/eAspayb-theme01.css">
-    <link rel="stylesheet" href="css/easpayb-bootstrap.css">
+    <link rel="stylesheet" href="css/ecommers-bootstrap.css">
     <link rel="stylesheet" href="css/animate.css">
 
+    <link rel="stylesheet" href="css/temas/dark/style-tema.css">
 
     <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
 
-  </head>
-  <body charset="UTF-8" ng-controller="EaspaybControlador as eAspaybCtrl">
-    <!--[if lt IE 7]>
-    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+    <link rel='stylesheet' href='librerias/kendo/styles/kendo.common-bootstrap.core.min.css'>
+    <link rel='stylesheet' href='librerias/kendo/styles/kendo.common-bootstrap.min.css'>
+    <link rel='stylesheet' href='librerias/kendo/styles/kendo.bootstrap.min.css'>
+    <link rel='stylesheet' href='librerias/kendo/styles/kendo.bootstrap.mobile.min.css'>
+    <link rel='stylesheet' href='css/easpayb-kendo.css'>
 
-    <!-- Javascript -->
-    <script src="css/assets/js/supersized.3.2.7.min.js"></script>
-    <script src="css/assets/js/supersized-init.js"></script>
-    <script src="css/assets/js/scripts.js"></script>
+  </head>
+  <body charset="UTF-8" ng-controller="ECommersControlador as eCommersCtrl">
+    <!--[if lt IE 7]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please
+      <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
     <!-- Modulos: AngularJS -->
     <script src="bower_components/angular/angular.js"></script>
@@ -45,26 +45,34 @@
     <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
     <script src="bower_components/angular-clipboard/angular-clipboard.js"></script>
 
+    <!-- Kendo UI -->
+    <script src="librerias/kendo/js/kendo.all.min.js"></script>
+
+    <!-- Kendo: l10n -->
+    <script src="librerias/kendo/kendo.culture.en-US.min.js"></script>
+    <script src="librerias/kendo/kendo.culture.es-MX.min.js"></script>
+
+
     <!-- Modulos: eAspayb -->
-    <script src="eAspayb.module.js"></script>
-    <script src="eAspayb.constants.js"></script>
-    <script src="eAspayb.controller.js"></script>
-    <script src="eAspayb.routes.js"></script>
-    <script src="eAspayb.services.js"></script>
+    <script src="ecommers.module.js"></script>
+    <script src="ecommers.constants.js"></script>
+    <script src="ecommers.controller.js"></script>
+    <script src="ecommers.routes.js"></script>
+    <script src="ecommers.services.js"></script>
 
     <script src="Servicios/alertas.service.js"></script>
     <script src="Servicios/notificacion.service.js"></script>
     <script src="Servicios/tabla.service.js"></script>
     <script src="Servicios/au.service.js"></script>
 
-    <script src="Xpertys/xpertysModulo.js"></script>
-    <script src="Xpertys/xsFiltros.js"></script>
-    <script src="Xpertys/xsDirectivas/Componentes/xsTabla/xsTabla.directiva.js"></script>
-    <script src="Xpertys/xsDirectivas/Componentes/xsMenuABM/xsMenuABM.js"></script>
-    <script src="Xpertys/xsDirectivas/Componentes/xsBusqueda/xsBusqueda.directiva.js"></script>
+    <script src="Directivas/xsModulo.js"></script>
+    <script src="Directivas/xsFiltros.js"></script>
+    <script src="Directivas/xsDirectivas/Componentes/xsTabla/xsTabla.directiva.js"></script>
+    <script src="Directivas/xsDirectivas/Componentes/xsMenuABM/xsMenuABM.js"></script>
+    <script src="Directivas/xsDirectivas/Componentes/xsBusqueda/xsBusqueda.directiva.js"></script>
 
-    <script src="Xpertys/xsDirectivas/easpaybFile/easpaybFile.directive.js"></script>
-    <script src="Xpertys/xsDirectivas/easpaybFileAgregarModel/easpaybFileAgregarModel.directive.js"></script>
+    <script src="Directivas/xsDirectivas/ecommersFile/ecommersFile.directive.js"></script>
+    <script src="Directivas/xsDirectivas/ecommersFileAgregarModel/ecommersFileAgregarModel.directive.js"></script>
 
     <script src="Tablas/tablas.js"></script>
     <script src="Tablas/ObjetosDeConfiguracion/objsGenerales.js"></script>
@@ -75,6 +83,13 @@
 
     <!-- Modulo: Acceso -->
     <script src="Modulos/Acceso/inicio/inicio.controller.js"></script>
+    <script src="Modulos/MenuSuperior/menuSuperior.controller.js"></script>
+    <script src="Modulos/AdministracionDatos/AdministracionDatos.controller.js"></script>
+    <script src="Modulos/AdministracionDatos/Usuario/usuario.controller.js"></script>
+    <script src="Modulos/AdministracionDatos/Categoria/Categoria.controller.js"></script>
+    <script src="Modulos/AdministracionDatos/Promocion/Promocion.controller.js"></script>
+
+    <div ng-include="'Modulos/MenuSuperior/menuSuperior.html'"></div>
 
     <div ng-view></div>
   </body>

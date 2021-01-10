@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('eAspayb')
+    .module('eCommers')
     .factory('AuInterceptor', AuInterceptor);
 
   AuInterceptor.$inject = ['$window'];
