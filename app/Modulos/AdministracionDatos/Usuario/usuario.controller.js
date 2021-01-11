@@ -112,7 +112,6 @@
         function seleccionarUsuario(row) {
             usuarioCtrl.usuarioSeleccionado = row;
             usuarioCtrl.usuarioEditable = angular.copy(usuarioCtrl.usuarioSeleccionado);
-            consultarDireccionUsuario();
         }
 
         function agregarUsuario() {

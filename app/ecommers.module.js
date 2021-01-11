@@ -8,6 +8,7 @@
             'xsModulo',
             'toastr',
             'angular-clipboard',
+            'ui.carousel',
             'kendo.directives'
         ]);
 })();
