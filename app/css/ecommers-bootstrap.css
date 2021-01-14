@@ -6191,6 +6191,12 @@ ol.progtrckr li.progtrckr-todo:before {
   color: #33458B;
 }
 
+
+.card-lomas-vendido {
+  background: #ffffff;
+  padding: 2%;
+}
+
 .card-categoria {
   background: #e2e2e2;
   border-radius: 0px 0px 15px 15px;
@@ -6400,4 +6406,24 @@ ol.progtrckr li.progtrckr-todo:before {
     left: 0;
     right: auto;
   }
+}
+
+
+.wrapper {
+  text-align: center;
+  color: #000;
+  font-weight: bold;
+  font-size: 10em;
+}
+
+.span-titulos {
+  text-shadow: -0.06em 0 red,  0.06em 0 cyan;
+  letter-spacing: 0.3em;
+}
+
+.slogan { font-size: 0.25em; }
+.slogan span:active { text-shadow: none; }
+
+.caja-texto-footer {
+  padding-top: 3%;
 }

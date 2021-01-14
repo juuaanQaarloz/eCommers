@@ -42,13 +42,25 @@
 
         /** Funciones del Controlador **/
         activarControlador();
+        inicioCtrl.nuevaConexionDB = nuevaConexionDB;
 
         function activarControlador() {
             $timeout(function () {
                 inicioCtrl.viewCarrucel = true;
+                inicioCtrl.losMasVendido = inicioCtrl.dataArray;
             });
         }
 
+        function nuevaConexionDB() {
+            var mapa = new Object();
+            var promesa = serviciosRest.conexionDB(mapa).$promise;
+            promesa.then(function (respuesta) {
+
+            });
+            promesa.catch(function (error) {
+                alertasServicios.desplegarMensaje(error);
+            });
+        }
 
 
     }

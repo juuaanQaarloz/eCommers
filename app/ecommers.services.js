@@ -20,6 +20,8 @@
                 method: 'POST', isArray: 'true', headers: {'Content-Type': 'application/json'}
             }, justificacion: {
                 method: 'POST', isArray: 'true', headers: {'Content-Type': 'application/json'}
+            }, nuevaConexionBD: {
+                method: 'POST', isArray: 'true', headers: {'Content-Type': 'application/json'}
             }
         });
 
@@ -30,7 +32,8 @@
             searchJustificacion: searchJustificacion,
             cargarAlumnosExcel: cargarAlumnosExcel,
             confirmarCargaAsistencia: confirmarCargaAsistencia,
-            validarDato: validarDato
+            validarDato: validarDato,
+            conexionDB: conexionDB,
         };
         return servicios;
 
@@ -53,6 +56,9 @@
         function searchJustificacion(parametros) {
             return serviciosJava.justificacion({servicio: "justificacion"}, parametros);
         }
+        function conexionDB(parametros) {
+            return serviciosJava.nuevaConexionBD({servicio: "nuevaConexionBD"}, parametros);
+        }
 
         function validarDato(valor) {
             var bandera = false;
@@ -63,7 +69,7 @@
         }
 
         function cargarAlumnosExcel(formData) {
-            return $http.post(urlServicios+'apiRest/cargarArchivoAlumnos', formData, {
+            return $http.post(urlServicios + 'apiRest/cargarArchivoAlumnos', formData, {
                 transformRequest: angular.identity,
                 headers: {'Content-Type': undefined}
             })
@@ -74,6 +80,5 @@
                 headers: {'Content-Type': undefined}
             })
         }
-
     }
 })();

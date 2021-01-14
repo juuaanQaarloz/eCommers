@@ -1,6 +1,7 @@
 <div ng-controller="InicioControlador as inicioCtrl">
-    <div class="row" style="padding: 0 10%">
-        <div class="col-sm-12" style="margin-top: 25px">
+
+    <div class="row" style="padding: 0 15%">
+        <div class="col-sm-12" style="margin-top: 45px">
             <div class="col-sm-12" style="padding: 0"
                  ng-if="inicioCtrl.viewCarrucel">
                 <ui-carousel slides="inicioCtrl.dataArray"
@@ -17,11 +18,11 @@
                 </ui-carousel>
             </div>
         </div>
-        <div class="col-sm-12" style="margin-top: 20px">
-            <div class="col-sm-12 text-center">
-                <span><b style="font-size: 18px">DEPARTAMENTOS</b></span>
+        <div class="col-sm-12" style="margin-top: 50px">
+            <div class="col-sm-12 text-center wrapper">
+                <p class="slogan"><span class="span-titulos">DEPARTAMENTOS</span></p>
             </div>
-            <div class="col-sm-12" style="margin-top: 15px">
+            <div class="col-sm-12" style="margin-top: 25px">
                 <ui-carousel slides="inicioCtrl.dataArray"
                              slides-to-show="3"
                              autoplay="true"
@@ -31,7 +32,7 @@
                              visible-prev="true">
                     <carousel-item>
 
-                        <div style="height: 270px; padding: 5%">
+                        <div style="height: 320px; padding: 5%">
                             <div>
                                 <img src="{{item.src}}"
                                      style="width: 100%; height: 200px">
@@ -39,7 +40,7 @@
                             <div class="card-categoria">
 
                                 <div class="card-categoria-titulo">
-                                    KASF JAF AJKH KJDASD
+                                    TITULO
                                 </div>
                                 <div class="card-categoria-sub-titulo">
                                     djkh fhasjkd jkasdh jkhd jash dlas hdkls djas djlasdsld
@@ -53,51 +54,114 @@
                 </ui-carousel>
             </div>
         </div>
-        <div class="col-sm-12">
-            AQUI VAN LOS PRODUCTOS MAS VENDIDOS
+        <div class="col-sm-12" style="margin-top: 50px">
+
+            <div class="col-sm-12 text-center wrapper">
+                <p class="slogan"><span class="span-titulos">LO MAS VENDIDO</span></p>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="col-sm-3" style="margin: 15px 0;"
+                     ng-repeat="loMasVendido in inicioCtrl.losMasVendido">
+                    <div style="height: 210px; padding: 5%">
+                        <div>
+                            <div class="card-categoria-titulo" style="text-align: center">
+                               TITULO
+                            </div>
+                        </div>
+                        <div>
+                            <img src="{{loMasVendido.src}}"
+                                 style="width: 100%; height: 130px">
+                        </div>
+                        <div class="card-lomas-vendido">
+                            <div class="card-categoria-sub-titulo">
+                                djkh fhasjkd jkasdh jkhd jash dlas hdkls djas djlasdsld
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-12" style="padding: 15% 10%">
-            <div class="col-sm-12" style="text-align: right">
-                REDES SOCIALES
+
+    </div>
+    <div class="row" style="margin-top: 2%;">
+        <div class="col-sm-12"
+             style="margin-top: 50px; background: #eaeaea; padding-bottom: 7%">
+            <div class="col-sm-12"
+                 style="text-align: right; padding: 5% 2% 3% 0 ">
+                <div class="col-sm-9">&nbsp;&nbsp;&nbsp;</div>
+                <div class="col-md-3">
+                    <a target="_blank"
+                       href="">
+                        <img src="img/redesSociales/facebook.png">
+                    </a>&nbsp;&nbsp;&nbsp;
+                    <a target="_blank"
+                       href="">
+                        <img src="img/redesSociales/twitter.png">
+                    </a>&nbsp;&nbsp;&nbsp;
+                    <a target="_blank"
+                       href="">
+                        <img src="img/redesSociales/youtube.png">
+                    </a>
+                </div>
             </div>
-            <div class="col-sm-4" style="text-align: center">
-                ACERCA DE LA EMPRESA <br>
-                ACERCA DE LA EMPRESA <br>
-                ACERCA DE LA EMPRESA <br>
-                ACERCA DE LA EMPRESA <br>
+            <div class="col-sm-3 col-sm-offset-2">
+                <div class="col-sm-12">
+                    <b>Acerca de Nosotros</b>
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Quienes Somos
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Oficinas
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Tiendas
+                </div>
             </div>
-            <div class="col-sm-4" style="text-align: center">
-                ACERCA DE LOS PRODUCTOS <br>
-                ACERCA DE LOS PRODUCTOS <br>
-                ACERCA DE LOS PRODUCTOS <br>
-                ACERCA DE LOS PRODUCTOS <br>
-                ACERCA DE LOS PRODUCTOS <br>
-                ACERCA DE LOS PRODUCTOS <br>
+            <div class="col-sm-3" >
+                <div class="col-sm-12">
+                    <b>Ayuda al Cliente</b>
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Guia de Compras
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Pago
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Envio
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Devoluciones
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Cambios
+                </div>
             </div>
-            <div class="col-sm-4" style="text-align: center">
-                POLITICA DE ENVIO <br>
-                POLITICA DE ENVIO <br>
-                POLITICA DE ENVIO <br>
-                POLITICA DE ENVIO <br>
-                POLITICA DE ENVIO <br>
-                POLITICA DE ENVIO <br>
+            <div class="col-sm-3">
+                <div class="col-sm-12 caja-texto-footer">
+                    <b>Politicas</b>
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Politica de Privacidad
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Politica Cookies
+                </div>
+                <div class="col-sm-12 caja-texto-footer">
+                    Aviso Copyright
+                </div>
             </div>
         </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
     <div class="row">
         <div class="col-sm-12">
             <div class="footer-login-simple">
                 <div style="color: white; width: 100%; text-align: center; padding-top: 7px;">
                     <div>
-                        Exclusividad de Distribución a
+                        Exclusividad de Distribución JC 2021
                     </div>
                 </div>
             </div>
