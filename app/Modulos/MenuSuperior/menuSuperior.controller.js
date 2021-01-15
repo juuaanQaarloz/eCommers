@@ -11,15 +11,16 @@
         .module('eCommers')
         .controller('MenuSuperiorControlador', MenuSuperiorControlador);
 
-    MenuSuperiorControlador.$inject = ['$log'];
+    MenuSuperiorControlador.$inject = ['$log', '$location'];
 
     /* @ngInject */
-    function MenuSuperiorControlador($log) {
+    function MenuSuperiorControlador($log, $location) {
         /* jshint validthis: true */
         var menuSuperiorCtrl = this;
 
         activar();
         menuSuperiorCtrl.hola = hola;
+        menuSuperiorCtrl.irAPortal = irAPortal;
 
         /**
          * @ngdoc method
@@ -30,6 +31,10 @@
          */
         function activar() {
 
+        }
+
+        function irAPortal() {
+            $location.path('/inicio');
         }
 
         function hola() {

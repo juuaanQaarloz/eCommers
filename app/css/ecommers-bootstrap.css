@@ -3458,7 +3458,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   line-height: 1;
   color: #33458B;
   text-align: center;
-  background-color: #edf2f4;
+  background-color: #FFFFFF;
   border: 1px solid #d7e5f7;
   border-radius: 2px;
 }
@@ -6213,7 +6213,7 @@ ol.progtrckr li.progtrckr-todo:before {
 .footer-login-simple {
   position: fixed;
   bottom: 0;
-  background-color: #274488;
+  background-color: #000000;
   height: 35px;
   font-size: 15px;
   text-align: center;
@@ -6228,7 +6228,7 @@ ol.progtrckr li.progtrckr-todo:before {
 }
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 10px rgba(51, 69, 139, 0.8);
+  -webkit-box-shadow: inset 0 0 10px #000000;
   -webkit-border-radius: 2px;
   border-radius: 2px;
 }
@@ -6236,7 +6236,7 @@ ol.progtrckr li.progtrckr-todo:before {
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  background: #435d75;
+  background: #000000;
 }
 
 
@@ -6426,4 +6426,48 @@ ol.progtrckr li.progtrckr-todo:before {
 
 .caja-texto-footer {
   padding-top: 3%;
+}
+
+.buttonIgnorar {
+  padding: 5px;
+  background: #4e4e4e;
+  width: 100%;
+  border-radius: 15px;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.buttonAceptar {
+  padding: 5px;
+  background: #000000;
+  width: 100%;
+  border-radius: 15px;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.titulo-compra-iniciar-session {
+  background: #000000;
+  border: solid #BDBDBD 1px;
+  color: white;
+  border-top-left-radius: 40px; -webkit-border-top-left-radius: 40px; -moz-border-top-left-radius: 40px;
+  border-top-right-radius: 40px; -webkit-border-top-right-radius: 40px; -moz-border-top-right-radius: 40px;
+  border-bottom-left-radius: 5px; -webkit-border-bottom-left-radius: 5px; -moz-border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px; -webkit-border-bottom-right-radius: 5px; -moz-border-bottom-right-radius: 5px;
+}
+.texto-politicas-titulo {
+  font-size: 19px;
+}
+
+.texto-politicas {
+  font-size: 15px;
+}
+
+.cuadro-texto-footer {
+  margin-top: 50px;
+  background: #eaeaea;
+  padding-bottom: 7%;
+  box-shadow: 1px 0 10px 0 rgb(0 0 0 / 42%);
 }

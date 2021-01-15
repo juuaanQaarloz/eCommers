@@ -2,23 +2,29 @@
 
     <div class="topsuperior">
         <div class="menuSuperior" style="padding: 10px;">
-            <div class="col-sm-3">
-
+            <div class="col-sm-3" style="text-align: center">
+                <img src="img/temas/dark/jcLogo.jpg"
+                     style="height: 60px; width: 60%; cursor: pointer"
+                     ng-click="menuSuperiorCtrl.irAPortal();">
             </div>
-            <div class="col-sm-7" style="margin-top: 15px">
+
+            <div class="col-sm-2 pull-right" style="margin-top: 15px; text-align: center">
+                <div class="col-sm-12" style="color: black">
+                    Iniciar Sesión&nbsp;&nbsp;
+                    <i class="ixs ixs-usuario" style="font-size: 20px;color: #274488;"></i>
+                </div>
+            </div>
+            <div class="col-sm-3 pull-right" style="margin-top: 15px">
                 <div class="form-group">
                     <div class="input-group margin-bottom-sm">
                         <input class="form-control" style="height: 30px"
                                type="text" placeholder="Buscar Producto"
                                ng-model="tablaCtrl.busqueda">
                         <span class="input-group-addon"  style="height: 30px">
-                            <i class="ixs ixs-buscar"></i>
-                        </span>
+                                <i class="ixs ixs-buscar"></i>
+                            </span>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-2" style="margin-top: 15px">
-
             </div>
         </div>
     </div>

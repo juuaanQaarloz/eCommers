@@ -5,7 +5,7 @@
         .controller('InicioControlador', InicioControlador);
 
     /* @ngInject */
-    function InicioControlador($log, tblsServicios, $timeout, serviciosRest, alertasServicios, $scope) {
+    function InicioControlador($log, tblsServicios, $timeout, serviciosRest, alertasServicios, $scope, $location) {
         /* jshint validthis: true */
         var inicioCtrl = this;
 
@@ -43,6 +43,8 @@
         /** Funciones del Controlador **/
         activarControlador();
         inicioCtrl.nuevaConexionDB = nuevaConexionDB;
+        inicioCtrl.irADetalleVenta = irADetalleVenta;
+        inicioCtrl.irADetalleProducto = irADetalleProducto;
 
         function activarControlador() {
             $timeout(function () {
@@ -60,6 +62,21 @@
             promesa.catch(function (error) {
                 alertasServicios.desplegarMensaje(error);
             });
+        }
+
+        function irADetalleProducto(producto) {
+            serviciosRest.setDatosProducto(producto);
+            $timeout(function () {
+                $location.path('/producto');
+            }, 100);
+        }
+
+
+        function irADetalleVenta(producto) {
+            serviciosRest.setDatosProducto(producto);
+            $timeout(function () {
+                $location.path('/venta');
+            }, 100);
         }
 
 

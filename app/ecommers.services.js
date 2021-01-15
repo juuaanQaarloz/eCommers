@@ -12,6 +12,7 @@
 
         var store = $window.localStorage;
         var llave = 'at-finance';
+        var producto = null;
 
         var serviciosJava = $resource(urlServicios+'apiRest/:servicio', {servicio: "@servicio"}, {
             login: {
@@ -34,6 +35,8 @@
             confirmarCargaAsistencia: confirmarCargaAsistencia,
             validarDato: validarDato,
             conexionDB: conexionDB,
+            setDatosProducto: setDatosProducto,
+            getDatosProducto: getDatosProducto,
         };
         return servicios;
 
@@ -43,6 +46,13 @@
             } else {
                 store.removeItem(llave);
             }
+        };
+
+        function setDatosProducto(prod) {
+            producto = prod;
+        };
+        function getDatosProducto() {
+            return producto;
         };
 
         function login(parametros) {
