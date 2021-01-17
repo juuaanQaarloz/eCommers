@@ -45,6 +45,8 @@
         inicioCtrl.nuevaConexionDB = nuevaConexionDB;
         inicioCtrl.irADetalleVenta = irADetalleVenta;
         inicioCtrl.irADetalleProducto = irADetalleProducto;
+        inicioCtrl.irADetalleProductoCat = irADetalleProductoCat;
+        inicioCtrl.irAComprarProducto = irAComprarProducto;
 
         function activarControlador() {
             $timeout(function () {
@@ -71,8 +73,25 @@
             }, 100);
         }
 
+        function irADetalleProductoCat(producto) {
+
+            console.log("sajkgasjd asjkd hsjkdh kjas dkj ashdkj");
+
+            serviciosRest.setDatosProducto(producto);
+            $timeout(function () {
+                $location.path('/producto');
+            }, 100);
+        }
+
 
         function irADetalleVenta(producto) {
+            serviciosRest.setDatosProducto(producto);
+            $timeout(function () {
+                $location.path('/venta');
+            }, 100);
+        }
+
+        function irAComprarProducto(producto) {
             serviciosRest.setDatosProducto(producto);
             $timeout(function () {
                 $location.path('/venta');

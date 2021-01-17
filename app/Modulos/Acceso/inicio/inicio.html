@@ -9,10 +9,12 @@
                              initial-slide="1"
                              autoplay="true"
                              autoplay-speed="2000"
+                             on-click-imagen="inicioCtrl.irAComprarProducto(item);"
                              buttons-slide="true">
                     <carousel-item>
                         <div class="image">
-                            <img src="{{ item.src }}" style="width: 100%; height: 500px">
+                            <img src="{{ item.src }}"
+                                 style="width: 100%; height: 500px">
                         </div>
                     </carousel-item>
                 </ui-carousel>
@@ -29,13 +31,15 @@
                              autoplay-speed="5000"
                              dots="true"
                              visible-next="true"
+                             inicio-ctrl="inicioCtrl"
                              visible-prev="true">
                     <carousel-item>
 
                         <div style="height: 320px; padding: 5%">
                             <div>
                                 <img src="{{item.src}}"
-                                     style="width: 100%; height: 200px">
+                                     style="width: 100%; height: 200px"
+                                     ng-click="inicioCtrl.irADetalleProductoCat(item)">
                             </div>
                             <div class="card-categoria">
 

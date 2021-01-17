@@ -18,9 +18,14 @@
         /* jshint validthis: true */
         var menuSuperiorCtrl = this;
 
+        menuSuperiorCtrl.usuarioSesion = null;
+
         activar();
-        menuSuperiorCtrl.hola = hola;
         menuSuperiorCtrl.irAPortal = irAPortal;
+        menuSuperiorCtrl.irAdminPantalla = irAdminPantalla;
+        menuSuperiorCtrl.mdlLogin = mdlLogin;
+        menuSuperiorCtrl.mdlPoliticas = mdlPoliticas;
+        menuSuperiorCtrl.mdlVentasUsuario = mdlVentasUsuario;
 
         /**
          * @ngdoc method
@@ -37,8 +42,21 @@
             $location.path('/inicio');
         }
 
-        function hola() {
-            $('.dropdown-toggle').dropdownHover();
+        function irAdminPantalla() {
+            $location.path('/mntAdministracionDatos');
+        }
+
+        function mdlLogin() {
+            console.log("Modal de Login");
+            angular.element("#mdlLogin").modal("show");
+        }
+
+        function mdlPoliticas() {
+            angular.element("#mdlPoliticas").modal('show');
+        }
+
+        function mdlVentasUsuario() {
+            angular.element("#mdlVentasUsuario").modal('show');
         }
     }
 })();

@@ -11,15 +11,24 @@
             <div class="col-sm-2 pull-right" style="margin-top: 15px; text-align: center">
 
                 <div class="dropdown">
-                    <div class="dropbtn">
+                    <div class="dropbtn"
+                         ng-if="!menuSuperiorCtrl.usuarioSesion"
+                         ng-click="menuSuperiorCtrl.mdlLogin()">
+                        Iniciar Sesión 1&nbsp;&nbsp;
+                        <i class="ixs ixs-usuario" style="font-size: 20px;color: #274488;"></i>
+                    </div>
+                    <div class="dropbtn" ng-if="menuSuperiorCtrl.usuarioSesion">
                         Iniciar Sesión&nbsp;&nbsp;
                         <i class="ixs ixs-usuario" style="font-size: 20px;color: #274488;"></i>
                     </div>
-                    <div class="dropdown-content">
+                    <div class="dropdown-content" ng-if="menuSuperiorCtrl.usuarioSesion">
                         <a><i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i> JUAN NUTE</a>
                         <a><i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i> CORREO ELECTRONICO</a>
                         <a><i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i> TIPO DE USUARIO</a>
-                        <a><i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i> Administración de Pagina </a>
+                        <a ng-click="menuSuperiorCtrl.irAdminPantalla();">
+                            <i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i>
+                            Administración de Pagina
+                        </a>
                     </div>
                 </div>
             </div>
@@ -37,6 +46,10 @@
             </div>
         </div>
     </div>
+
+    <div ng-include="'MenuSuperior/Modals/mdlLogin.html'"></div>
+    <div ng-include="'MenuSuperior/Modals/mdlPoliticas.html'"></div>
+    <div ng-include="'MenuSuperior/Modals/mdlVentasUsuario.html'"></div>
 
 </div>
 
