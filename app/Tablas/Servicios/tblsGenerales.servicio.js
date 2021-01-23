@@ -7,7 +7,7 @@
     angular.module('tablas')
         .factory('tblsGenerales', tblsGenerales);
 
-    function tblsGenerales($log, tblTokens, tblUsuarios, tblPromociones, tblCategoria) {
+    function tblsGenerales($log, tblTokens, tblUsuarios, tblPromociones, tblCategoria, tblProducto, tblProductoVenta) {
 
         var servicios = {
             getTabla: getTabla
@@ -35,6 +35,10 @@
                 config = tblPromociones;
             else if (nombre == 'tblCategoria')
                 config = tblCategoria;
+            else if (nombre == 'tblProducto')
+                config = tblProducto;
+            else if (nombre == 'tblProductoVenta')
+                config = tblProductoVenta;
             else
                 config = {};
             return config;

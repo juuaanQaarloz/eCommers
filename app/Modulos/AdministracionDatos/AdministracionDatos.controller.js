@@ -11,6 +11,7 @@
 
         /* jshint validthis: true */
         var administracionDatosCtrl = this;
+        $rootScope.ocultarBuscarMenuSuperior = false;
 
         administracionDatosCtrl.tabSeleccionada = 1;
 

@@ -16,6 +16,7 @@
                             <div ng-class="{'has-error': form.nombre.$invalid, 'has-success': form.nombre.$valid}">
                                 <input type="text" name="nombre"
                                        ng-model="usuarioCtrl.nuevoUsr.nombre"
+                                       ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
                                        class="form-control" style="width: 100%"
                                        maxlength="100" required/>
                             </div>
@@ -26,6 +27,7 @@
                             <div ng-class="{'has-error': form.clave.$invalid, 'has-success': form.clave.$valid}">
                                 <input type="password" name="clave"  style="width: 100%"
                                        ng-model="usuarioCtrl.nuevoUsr.clave"
+                                       ng-pattern="/^[A-Za-z0-9- ]*$/"
                                        class="form-control" maxlength="18" required/>
                             </div>
                         </div>
@@ -63,55 +65,43 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <label>País</label>
-                            <select class="form-control" name="idPais"
-                                    ng-required="true" style="width: 100%"
-                                    xs-validate-text-kendo-combo-box kendo-combo-box
-                                    k-options="usuarioCtrl.cbxPais"
-                                    k-data-source="usuarioCtrl.paises"
-                                    ng-model="usuarioCtrl.nuevoUsr.idPais"
-                                    k-ng-model="usuarioCtrl.idPais"
-                                    ng-class="{'error-combo': form.idPais.$invalid,
-                                               'success-combo': form.idPais.$valid}">
-                            </select>
+                            <div ng-class="{'has-error': form.pais.$invalid, 'has-success': form.pais.$valid}">
+                                <input type="text" name="pais"
+                                       ng-model="usuarioCtrl.nuevoUsr.pais"
+                                       ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
+                                       class="form-control" style="width: 100%"
+                                       maxlength="100" required/>
+                            </div>
                         </div>
                         <div class="col-sm-3">
                             <label>Estado</label>
-                            <select class="form-control" name="idEstado"
-                                    ng-required="true" style="width: 100%"
-                                    xs-validate-text-kendo-combo-box kendo-combo-box
-                                    k-options="usuarioCtrl.cbxEstado"
-                                    k-data-source="usuarioCtrl.estados"
-                                    ng-model="usuarioCtrl.nuevoUsr.idEstado"
-                                    k-ng-model="usuarioCtrl.idEstado"
-                                    ng-class="{'error-combo': form.idEstado.$invalid,
-                                               'success-combo': form.idEstado.$valid}">
-                            </select>
+                            <div ng-class="{'has-error': form.estado.$invalid, 'has-success': form.estado.$valid}">
+                                <input type="text" name="estado"
+                                       ng-model="usuarioCtrl.nuevoUsr.estado"
+                                       ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
+                                       class="form-control" style="width: 100%"
+                                       maxlength="100" required/>
+                            </div>
                         </div>
                         <div class="col-sm-3">
                             <label>Municipio</label>
-                            <select class="form-control" name="idMunicipio"
-                                    ng-required="true" style="width: 100%"
-                                    xs-validate-text-kendo-combo-box kendo-combo-box
-                                    k-options="usuarioCtrl.cbxMunicipio"
-                                    k-data-source="usuarioCtrl.municipios"
-                                    ng-model="usuarioCtrl.nuevoUsr.idMunicipio"
-                                    k-ng-model="usuarioCtrl.idMunicipio"
-                                    ng-class="{'error-combo': form.idMunicipio.$invalid,
-                                               'success-combo': form.idMunicipio.$valid}">
-                            </select>
+                            <div ng-class="{'has-error': form.municipio.$invalid, 'has-success': form.municipio.$valid}">
+                                <input type="text" name="municipio"
+                                       ng-model="usuarioCtrl.nuevoUsr.municipio"
+                                       ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
+                                       class="form-control" style="width: 100%"
+                                       maxlength="100" required/>
+                            </div>
                         </div>
                         <div class="col-sm-3">
                             <label>Ciudad</label>
-                            <select class="form-control" name="idCiudad"
-                                    ng-required="true" style="width: 100%"
-                                    xs-validate-text-kendo-combo-box kendo-combo-box
-                                    k-options="usuarioCtrl.cbxCiudad"
-                                    k-data-source="usuarioCtrl.ciudades"
-                                    ng-model="usuarioCtrl.nuevoUsr.idCiudad"
-                                    k-ng-model="usuarioCtrl.idCiudad"
-                                    ng-class="{'error-combo': form.idCiudad.$invalid,
-                                               'success-combo': form.idCiudad.$valid}">
-                            </select>
+                            <div ng-class="{'has-error': form.ciudad.$invalid, 'has-success': form.ciudad.$valid}">
+                                <input type="text" name="ciudad"
+                                       ng-model="usuarioCtrl.nuevoUsr.ciudad"
+                                       ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
+                                       class="form-control" style="width: 100%"
+                                       maxlength="100" required/>
+                            </div>
                         </div>
                     </div>
 
@@ -121,6 +111,7 @@
                             <div ng-class="{'has-error': form.calle.$invalid, 'has-success': form.calle.$valid}">
                                 <input type="text" name="calle"
                                        ng-model="usuarioCtrl.nuevoUsr.calle"
+                                       ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
                                        class="form-control" style="width: 100%"
                                        maxlength="100" required/>
                             </div>
@@ -140,7 +131,7 @@
                                 <input type="text" name="noInterior"
                                        ng-model="usuarioCtrl.nuevoUsr.noInterior"
                                        class="form-control" style="width: 100%"
-                                       maxlength="100" required/>
+                                       maxlength="100"/>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -148,6 +139,7 @@
                             <div ng-class="{'has-error': form.colonia.$invalid, 'has-success': form.colonia.$valid}">
                                 <input type="text" name="colonia"
                                        ng-model="usuarioCtrl.nuevoUsr.colonia"
+                                       ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
                                        class="form-control" style="width: 100%"
                                        maxlength="100" required/>
                             </div>
@@ -170,8 +162,9 @@
                             <div ng-class="{'has-error': form.referencias.$invalid, 'has-success': form.referencias.$valid}">
                                 <input type="text" name="referencias"
                                        ng-model="usuarioCtrl.nuevoUsr.referencias"
+                                       ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
                                        class="form-control" style="width: 100%"
-                                       maxlength="5" required/>
+                                       maxlength="100" required/>
                             </div>
                         </div>
                     </div>

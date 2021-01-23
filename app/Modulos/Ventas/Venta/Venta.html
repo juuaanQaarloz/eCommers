@@ -8,15 +8,15 @@
             <div style="height: 500px; padding: 5%">
                 <div>
                     <div class="card-categoria-titulo" style="text-align: center">
-                        TITULO
+                       {{ventaCtrl.producto.nombreProducto}}
                     </div>
                 </div>
                 <div>
-                    <img src="{{ventaCtrl.producto.src}}" style="width: 100%; height: 400px">
+                    <img src="{{ventaCtrl.producto.urlImagen}}" style="width: 100%; height: 400px">
                 </div>
                 <div class="card-lomas-vendido">
                     <div class="card-categoria-sub-titulo">
-                        djkh fhasjkd jkasdh jkhd jash dlas hdkls djas djlasdsld
+                        {{ventaCtrl.producto.descripcion}}
                     </div>
                 </div>
 
@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-sm-3 col-sm-offset-1"
-             ng-if="ventaCtrl.usuarioSesion" style="margin-top: 15px; ">
+             ng-if="!ventaCtrl.usuarioSesion" style="margin-top: 15px; ">
             <div class="col-sm-12 titulo-compra-iniciar-session" style="padding: 0">
                 <div style="padding: 3%; text-align: center; font-size: 22px; letter-spacing: 3px;">
                     INICIA SESION
@@ -33,20 +33,15 @@
             <div class="col-sm-12"
                  style="padding: 0; border: 1px solid #d4cfcf;margin-top: -2px;">
                 <div class="row" style="padding: 5%;">
-                    <div class="col-sm-12">
-                        <div style="height: 100px">
-                            imagen
-                        </div>
-                    </div>
-                    <div class="col-sm-12" style="margin-bottom: 20px">
+                    <div class="col-sm-12" style="margin-top: 25px; margin-bottom: 20px">
 
                         <div class="form-group" ng-class="{'has-error': form.username.$invalid}">
                             <input id="username" style="height: 35px !important;"
                                    name="password" class="form-control input-login"
                                    type="text" xs-capitalizar
                                    placeholder="Correo Electrónico"
-                                   ng-required="menuSuperiorCtrl.usr.password != null"
-                                   ng-model="menuSuperiorCtrl.usr.username">
+                                   ng-required="ventaCtrl.usr.password != null"
+                                   ng-model="ventaCtrl.usr.username">
                         </div>
 
                         <br/>
@@ -55,14 +50,14 @@
                             <input id="password"  style="height: 35px !important;"
                                    name="password" class="form-control input-login"
                                    type="password" placeholder="Contraseña"
-                                   ng-model="menuSuperiorCtrl.usr.password"
-                                   ng-required="menuSuperiorCtrl.usr.username != null">
+                                   ng-model="ventaCtrl.usr.password"
+                                   ng-required="ventaCtrl.usr.username != null">
                         </div>
 
                     </div>
                     <div class="col-sm-12"
                          style="margin-bottom: 5px">
-                        <div style="height: 35px; font-size: 15px;">
+                        <div style="height: 35px; font-size: 15px;" ng-if="ventaCtrl.usr.username &&  ventaCtrl.usr.password">
                             <button class="buttonAceptar"
                                     ng-click="ventaCtrl.iniciarSesion()">
                                 <span>{{"ACCEDER"}}</span>
@@ -73,7 +68,7 @@
                          style="margin-bottom: 20px">
                         <div style="height: 35px; font-size: 15px;">
                             <button class="buttonAceptar"
-                                    ng-click="ventaCtrl.abrirRegistrarUsuario()">
+                                    ng-click="ventaCtrl.mdlSoloResgistro()">
                                 <span>{{"REGISTRATE"}}</span>
                             </button>
                         </div>
@@ -82,7 +77,7 @@
            </div>
         </div>
         <div class="col-sm-3 col-sm-offset-1"
-             ng-if="!ventaCtrl.usuarioSesion">
+             ng-if="$root.usuarioSesion" ng-init="ventaCtrl.usuarioSesion = $root.usuarioSesion">
             <div class="col-sm-12 titulo-compra-iniciar-session" style="padding: 0">
                 <div style="padding: 3%; text-align: center; font-size: 22px; letter-spacing: 3px;">
                     DETALLE COMPRA
@@ -91,257 +86,167 @@
             <div class="col-sm-12"
                  style="padding: 0; border: 1px solid #d4cfcf;margin-top: -2px;">
                 <div class="row" style="padding: 5%;">
-                    <div class="col-sm-12" style="margin-bottom: 20px">
+                    <form name="form" novalidate>
+                        <div class="col-sm-12" style="margin-bottom: 20px">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Producto</label>
+                                    <div>
+                                        {{ventaCtrl.producto.nombreProducto}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>Fecha Compra</label>
+                                    <div >
+                                        {{ventaCtrl.fechaCompra | fechaSimple}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Precio</label>
+                                    <div >
+                                        {{ventaCtrl.producto.precio | number}}
+                                    </div>
+                                </div>
+                            </div>
 
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label>Producto</label>
-                                <div>
-                                    {{ventaCtrl.producto}}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    Direccion del Usuario
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label>País</label>
+                                    <div ng-class="{'has-error': form.pais.$invalid,
+                                                'has-success': form.pais.$valid}">
+                                        <input type="text" name="pais"
+                                               ng-model="ventaCtrl.nuevaVenta.pais"
+                                               ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
+                                               class="form-control" style="width: 100%"
+                                               maxlength="100" required/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Estado</label>
+                                    <div ng-class="{'has-error': form.estado.$invalid, 'has-success': form.estado.$valid}">
+                                        <input type="text" name="estado"
+                                               ng-model="ventaCtrl.nuevaVenta.estado"
+                                               ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
+                                               class="form-control" style="width: 100%"
+                                               maxlength="100" required/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-sm-6">
+                                    <label>Municipio</label>
+                                    <div ng-class="{'has-error': form.municipio.$invalid, 'has-success': form.municipio.$valid}">
+                                        <input type="text" name="municipio"
+                                               ng-model="ventaCtrl.nuevaVenta.municipio"
+                                               ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
+                                               class="form-control" style="width: 100%"
+                                               maxlength="100" required/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Ciudad</label>
+                                    <div ng-class="{'has-error': form.ciudad.$invalid, 'has-success': form.ciudad.$valid}">
+                                        <input type="text" name="ciudad"
+                                               ng-model="ventaCtrl.nuevaVenta.ciudad"
+                                               ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
+                                               class="form-control" style="width: 100%"
+                                               maxlength="100" required/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Calle</label>
+                                    <div ng-class="{'has-error': form.calle.$invalid, 'has-success': form.calle.$valid}">
+                                        <input type="text" name="calle"
+                                               ng-model="ventaCtrl.nuevaVenta.calle"
+                                               class="form-control" style="width: 100%"
+                                               maxlength="100" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Colonia</label>
+                                    <div ng-class="{'has-error': form.colonia.$invalid, 'has-success': form.colonia.$valid}">
+                                        <input type="text" name="colonia"
+                                               ng-model="ventaCtrl.nuevaVenta.colonia"
+                                               class="form-control" style="width: 100%"
+                                               maxlength="100" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label>No Exterior</label>
+                                    <div ng-class="{'has-error': form.noExterior.$invalid, 'has-success': form.noExterior.$valid}">
+                                        <input type="text" name="noExterior"
+                                               ng-model="ventaCtrl.nuevaVenta.noExt"
+                                               class="form-control" style="width: 100%"
+                                               maxlength="100" required/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>No Interior</label>
+                                    <div ng-class="{'has-error': form.noInterior.$invalid, 'has-success': form.noInterior.$valid}">
+                                        <input type="text" name="noInterior"
+                                               ng-model="ventaCtrl.nuevaVenta.noInterior"
+                                               class="form-control" style="width: 100%"
+                                               maxlength="100"/>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Codigo Postal</label>
+                                    <div ng-class="{'has-error': form.codigoPostal.$invalid, 'has-success': form.codigoPostal.$valid}">
+                                        <input type="text" name="codigoPostal"
+                                               ng-model="ventaCtrl.nuevaVenta.codPos"
+                                               class="form-control" style="width: 100%"
+                                               maxlength="5" required/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Referencias</label>
+                                    <div ng-class="{'has-error': form.referencias.$invalid, 'has-success': form.referencias.$valid}">
+                                        <input type="text" name="referencias"
+                                               ng-model="ventaCtrl.nuevaVenta.referencia"
+                                               class="form-control" style="width: 100%"
+                                               maxlength="500" required/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>Fecha Compra</label>
-                                <div >
-                                    {{ventaCtrl.fechaCompra}}
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Precio</label>
-                                <div >
-                                    {{ventaCtrl.fechaCompra}}
-                                </div>
+                        <div class="col-sm-12"
+                             ng-if="form.$valid"
+                             style="margin-bottom: 5px">
+                            <div style="height: 35px; font-size: 15px;">
+                                <button class="buttonAceptar"
+                                        ng-click="ventaCtrl.abrirModalVenta()">
+                                    <span>{{"CONFIRMAR COMPRAR"}}</span>
+                                </button>
                             </div>
                         </div>
-
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                Direccion del Usuario
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <label>País</label>
-                                <select class="form-control" name="idPais"
-                                        ng-required="true" style="width: 100%"
-                                        xs-validate-text-kendo-combo-box kendo-combo-box
-                                        k-options="usuarioCtrl.cbxPais"
-                                        k-data-source="usuarioCtrl.paises"
-                                        ng-model="usuarioCtrl.nuevoUsr.idPais"
-                                        k-ng-model="usuarioCtrl.idPais"
-                                        ng-class="{'error-combo': form.idPais.$invalid,
-                                               'success-combo': form.idPais.$valid}">
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Estado</label>
-                                <select class="form-control" name="idEstado"
-                                        ng-required="true" style="width: 100%"
-                                        xs-validate-text-kendo-combo-box kendo-combo-box
-                                        k-options="usuarioCtrl.cbxEstado"
-                                        k-data-source="usuarioCtrl.estados"
-                                        ng-model="usuarioCtrl.nuevoUsr.idEstado"
-                                        k-ng-model="usuarioCtrl.idEstado"
-                                        ng-class="{'error-combo': form.idEstado.$invalid,
-                                               'success-combo': form.idEstado.$valid}">
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-                            <div class="col-sm-6">
-                                <label>Municipio</label>
-                                <select class="form-control" name="idMunicipio"
-                                        ng-required="true" style="width: 100%"
-                                        xs-validate-text-kendo-combo-box kendo-combo-box
-                                        k-options="usuarioCtrl.cbxMunicipio"
-                                        k-data-source="usuarioCtrl.municipios"
-                                        ng-model="usuarioCtrl.nuevoUsr.idMunicipio"
-                                        k-ng-model="usuarioCtrl.idMunicipio"
-                                        ng-class="{'error-combo': form.idMunicipio.$invalid,
-                                               'success-combo': form.idMunicipio.$valid}">
-                                </select>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Ciudad</label>
-                                <select class="form-control" name="idCiudad"
-                                        ng-required="true" style="width: 100%"
-                                        xs-validate-text-kendo-combo-box kendo-combo-box
-                                        k-options="usuarioCtrl.cbxCiudad"
-                                        k-data-source="usuarioCtrl.ciudades"
-                                        ng-model="usuarioCtrl.nuevoUsr.idCiudad"
-                                        k-ng-model="usuarioCtrl.idCiudad"
-                                        ng-class="{'error-combo': form.idCiudad.$invalid,
-                                               'success-combo': form.idCiudad.$valid}">
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label>Calle</label>
-                                <div ng-class="{'has-error': form.calle.$invalid, 'has-success': form.calle.$valid}">
-                                    <input type="text" name="calle"
-                                           ng-model="usuarioCtrl.nuevoUsr.calle"
-                                           class="form-control" style="width: 100%"
-                                           maxlength="100" required/>
-                                </div>
-                            </div>
-                        </div>
-                         <div class="row">
-                            <div class="col-sm-12">
-                                <label>Colonia</label>
-                                <div ng-class="{'has-error': form.colonia.$invalid, 'has-success': form.colonia.$valid}">
-                                    <input type="text" name="colonia"
-                                           ng-model="usuarioCtrl.nuevoUsr.colonia"
-                                           class="form-control" style="width: 100%"
-                                           maxlength="100" required/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <label>No Exterior</label>
-                                <div ng-class="{'has-error': form.noExterior.$invalid, 'has-success': form.noExterior.$valid}">
-                                    <input type="text" name="noExterior"
-                                           ng-model="usuarioCtrl.nuevoUsr.noExterior"
-                                           class="form-control" style="width: 100%"
-                                           maxlength="100" required/>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <label>No Interior</label>
-                                <div ng-class="{'has-error': form.noInterior.$invalid, 'has-success': form.noInterior.$valid}">
-                                    <input type="text" name="noInterior"
-                                           ng-model="usuarioCtrl.nuevoUsr.noInterior"
-                                           class="form-control" style="width: 100%"
-                                           maxlength="100" required/>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <label>Codigo Postal</label>
-                                <div ng-class="{'has-error': form.codigoPostal.$invalid, 'has-success': form.codigoPostal.$valid}">
-                                    <input type="text" name="codigoPostal"
-                                           ng-model="usuarioCtrl.nuevoUsr.codigoPostal"
-                                           class="form-control" style="width: 100%"
-                                           maxlength="5" required/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <label>Referencias</label>
-                                <div ng-class="{'has-error': form.referencias.$invalid, 'has-success': form.referencias.$valid}">
-                                    <input type="text" name="referencias"
-                                           ng-model="usuarioCtrl.nuevoUsr.referencias"
-                                           class="form-control" style="width: 100%"
-                                           maxlength="5" required/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12"
-                         style="margin-bottom: 5px">
-                        <div style="height: 35px; font-size: 15px;">
-                            <button class="buttonAceptar"
-                                    ng-click="ventaCtrl.abrirModalVenta()">
-                                <span>{{"CONFIRMAR COMPRAR"}}</span>
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row" style="margin-top: 2%;">
-    <div class="col-sm-12 cuadro-texto-footer" >
-        <div class="col-sm-12"
-             style="text-align: right; padding: 5% 2% 3% 0 ">
-            <div class="col-sm-9">&nbsp;&nbsp;&nbsp;</div>
-            <div class="col-md-3">
-                <a target="_blank"
-                   href="">
-                    <img src="img/redesSociales/facebook.png">
-                </a>&nbsp;&nbsp;&nbsp;
-                <a target="_blank"
-                   href="">
-                    <img src="img/redesSociales/twitter.png">
-                </a>&nbsp;&nbsp;&nbsp;
-                <a target="_blank"
-                   href="">
-                    <img src="img/redesSociales/youtube.png">
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-sm-offset-2">
-            <div class="col-sm-12">
-                <b class="texto-politicas-titulo">Acerca de Nosotros</b>
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Quienes Somos
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Oficinas
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Tiendas
-            </div>
-        </div>
-        <div class="col-sm-3" >
-            <div class="col-sm-12">
-                <b class="texto-politicas-titulo">Ayuda al Cliente</b>
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Guia de Compras
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Pago
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Envio
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Devoluciones
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Cambios
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="col-sm-12 caja-texto-footer">
-                <b class="texto-politicas-titulo">Politicas</b>
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Politica de Privacidad
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Politica Cookies
-            </div>
-            <div class="col-sm-12 caja-texto-footer texto-politicas">
-                Aviso Copyright
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="footer-login-simple">
-            <div style="color: white; width: 100%; text-align: center; padding-top: 7px;">
-                <div>
-                    Exclusividad de Distribución JC 2021
-                </div>
-            </div>
-        </div>
-    </div>
+    <iframe ng-show="false" width="1500" height="1000" id='print-iframe' name='print-frame-name'></iframe>
 </div>
 
 <div ng-include="'Modulos/Ventas/Venta/modals/mdlRegistroVenta.html'"></div>
+<div ng-include="'Modulos/Ventas/Venta/modals/mdlVentaCompletada.html'"></div>

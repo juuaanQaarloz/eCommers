@@ -5,44 +5,18 @@
         .controller('InicioControlador', InicioControlador);
 
     /* @ngInject */
-    function InicioControlador($log, tblsServicios, $timeout, serviciosRest, alertasServicios, $scope, $location) {
+    function InicioControlador($log, tblsServicios, $timeout, serviciosRest, alertasServicios, $scope, $location,
+                               urlArchivos) {
         /* jshint validthis: true */
         var inicioCtrl = this;
 
         inicioCtrl.viewCarrucel = false;
         /** Obtener configuracion de Tabla **/
         inicioCtrl.tblTokens = tblsServicios.getTabla('tblsGenerales', 'tblTokens');
-
-        inicioCtrl.dataArray = [
-            {
-                src: 'https://www.pallomaro.com/wp-content/uploads/2018/09/Gran-promocion-pallomaro-02-02.png',
-                orden: 1
-            },
-            {
-                src: 'https://www.travelexcellence.com/images/movil/La_Paz_Waterfall.jpg',
-                orden: 4
-            },
-            {
-                src: 'http://www.parasholidays.in/blog/wp-content/uploads/2014/05/holiday-tour-packages-for-usa.jpg',
-                orden: 3
-            },
-            {
-                src: 'http://clickker.in/wp-content/uploads/2016/03/new-zealand-fy-8-1-Copy.jpg',
-                orden: 2
-            },
-            {
-                src: 'http://clickker.in/wp-content/uploads/2016/03/new-zealand-fy-8-1-Copy.jpg',
-                orden: 6
-            },
-            {
-                src: 'http://clickker.in/wp-content/uploads/2016/03/new-zealand-fy-8-1-Copy.jpg',
-                orden: 7
-            }
-        ];
+        inicioCtrl.urlImagenes = urlArchivos;
 
         /** Funciones del Controlador **/
         activarControlador();
-        inicioCtrl.nuevaConexionDB = nuevaConexionDB;
         inicioCtrl.irADetalleVenta = irADetalleVenta;
         inicioCtrl.irADetalleProducto = irADetalleProducto;
         inicioCtrl.irADetalleProductoCat = irADetalleProductoCat;
@@ -51,20 +25,55 @@
         function activarControlador() {
             $timeout(function () {
                 inicioCtrl.viewCarrucel = true;
-                inicioCtrl.losMasVendido = inicioCtrl.dataArray;
+                consultarPromociones();
+                consultarProductos();
+                consultarCategorias();
             });
         }
 
-        function nuevaConexionDB() {
+        function consultarPromociones() {
+            inicioCtrl.promocionesActivas = [];
             var mapa = new Object();
-            var promesa = serviciosRest.conexionDB(mapa).$promise;
+            var promesa = serviciosRest.getPromocionesActivos(mapa).$promise;
             promesa.then(function (respuesta) {
-
+                angular.forEach(respuesta, function (promo) {
+                    promo.urlImagen = urlArchivos + "promociones/" + promo.idPromocion + "/" + promo.imagen;
+                });
+                inicioCtrl.promocionesActivas =  respuesta;
             });
             promesa.catch(function (error) {
                 alertasServicios.desplegarMensaje(error);
             });
         }
+        function consultarCategorias() {
+            inicioCtrl.categorias = [];
+            var mapa = new Object();
+            var promesa = serviciosRest.getCategorias(mapa).$promise;
+            promesa.then(function (respuesta) {
+                angular.forEach(respuesta, function (catego) {
+                    catego.urlImagen = urlArchivos + "categorias/" + catego.idCategoria + "/" + catego.imagen;
+                });
+                inicioCtrl.categorias =  respuesta;
+            });
+            promesa.catch(function (error) {
+                alertasServicios.desplegarMensaje(error);
+            });
+        }
+        function consultarProductos() {
+            inicioCtrl.productosActivos = [];
+            var mapa = new Object();
+            var promesa = serviciosRest.getProductosActivos(mapa).$promise;
+            promesa.then(function (respuesta) {
+                angular.forEach(respuesta, function (produtc) {
+                    produtc.urlImagen = urlArchivos + "productos/" + produtc.idProducto + "/" + produtc.imagen;
+                });
+                inicioCtrl.productosActivos = respuesta;
+            });
+            promesa.catch(function (error) {
+                alertasServicios.desplegarMensaje(error);
+            });
+        }
+
 
         function irADetalleProducto(producto) {
             serviciosRest.setDatosProducto(producto);
@@ -74,10 +83,7 @@
         }
 
         function irADetalleProductoCat(producto) {
-
-            console.log("sajkgasjd asjkd hsjkdh kjas dkj ashdkj");
-
-            serviciosRest.setDatosProducto(producto);
+            serviciosRest.setDatosProductoCat(producto);
             $timeout(function () {
                 $location.path('/producto');
             }, 100);

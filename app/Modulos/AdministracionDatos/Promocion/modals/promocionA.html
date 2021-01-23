@@ -15,7 +15,8 @@
                             <label>Nombre de Promocion</label>
                             <div ng-class="{'has-error': form.nombre.$invalid, 'has-success': form.nombre.$valid}">
                                 <input type="text" name="nombre"
-                                       ng-model="promocionCtrl.nuevaPromocion.nombre"
+                                       ng-model="promocionCtrl.nuevaPromocion.nombrePromocion"
+                                       ng-pattern="/^[A-Za-záéíóúÁÉÍÓÚñÑ0-9- ]*$/"
                                        class="form-control" style="width: 100%"
                                        maxlength="100" required/>
                             </div>
@@ -23,7 +24,7 @@
                         <div class="col-sm-2">
                             <label>Orden</label>
                             <div ng-class="{'has-error': form.orden.$invalid, 'has-success': form.orden.$valid}">
-                                <input type="password" name="orden"  style="width: 100%"
+                                <input type="text" name="orden"  style="width: 100%"
                                        ng-model="promocionCtrl.nuevaPromocion.orden"
                                        class="form-control" maxlength="10" required/>
                             </div>
@@ -32,7 +33,7 @@
                             <label>¿Vigente?</label>
                             <div>
                                 <input type="checkbox" id="editable"
-                                       ng-model="promocionCtrl.nuevaPromocion.idVigente"
+                                       ng-model="promocionCtrl.nuevaPromocion.indVigente"
                                        ng-true-value="'S'" ng-false-value="'N'">
                             </div>
                         </div>
@@ -41,8 +42,7 @@
                                            limpiar="perPersonaCtrl.limpiarArchivoPromocion"
                                            requerido="true"
                                            validacion-form="form"
-                                           acepta="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
-                                           nombre-archivo-editable="perPersonaCtrl.documentoPer.archivo">
+                                           acepta="image/jpeg,image/gif,image/png,image/x-eps">
                             </ecommers-file>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                         <div class="col-sm-12">
                             <label>Descripcion de Promocion</label>
                             <div ng-class="{'has-error': form.descripcion.$invalid, 'has-success': form.descripcion.$valid}">
-                                <input type="password" name="descripcion"  style="width: 100%"
+                                <input type="text" name="descripcion"  style="width: 100%"
                                        ng-model="promocionCtrl.nuevaPromocion.descripcion"
                                        class="form-control" maxlength="500" required/>
                             </div>
@@ -72,6 +72,7 @@
                                     k-data-source="promocionCtrl.categorias"
                                     ng-model="promocionCtrl.nuevaPromocion.idCategoria"
                                     k-ng-model="promocionCtrl.idCategoria"
+                                    k-on-change="promocionCtrl.consultarProductosFront(promocionCtrl.nuevaPromocion.idCategoria);"
                                     ng-class="{'error-combo': form.idCategoria.$invalid,
                                                'success-combo': form.idCategoria.$valid}">
                             </select>

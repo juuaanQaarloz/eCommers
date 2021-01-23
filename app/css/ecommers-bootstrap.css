@@ -2380,7 +2380,7 @@ input[type="button"].btn-block {
   vertical-align: middle;
   cursor: pointer;
   border: 0px solid transparent;
-  background-color: #5674AE !important;
+  background-color: #000000 !important;
   padding: 5px 5px 5px 10px;/*mcampech padding: 5px 5px;*/
   font-size: 14px;
   line-height: 1.428571429;
@@ -3573,19 +3573,21 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   max-width: none;
 }
 .nav-tabs {
-  border-bottom: 1px solid #e4eaf2;
+  border-bottom: 1px solid #000000;
 }
 .nav-tabs > li {
   float: left;
-  margin-bottom: -1px;
+  margin-bottom: 1px;
 }
 .nav-tabs > li > a {
   margin-right: 2px;
   line-height: 1.428571429;
-  border-color: #d3e2ef !important;
+  border-color: #4f4f4f !important;
   border-bottom-color: transparent !important;
   border: 1px solid;
   border-radius: 0 10px 0 0;
+  padding: 8px;
+  font-size: 14px;
 }
 .nav-tabs > li > a:hover {
   border-color: #d7e5f7 #d7e5f7 #e4eaf2;
@@ -3594,20 +3596,24 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #ffffff;
-  background-color: #33458B;
+  background-color: #000000;
   border: 1px solid #dddddd !important;
   border-bottom-color: transparent !important;
   cursor: default;
+  padding: 8px;
+  font-size: 14px;
 }
 
 .nav-tabs > li.subactive > a,
 .nav-tabs > li.subactive > a:hover,
 .nav-tabs > li.subactive > a:focus {
   color: #ffffff;
-  background-color: #0081c2 !important;
+  background-color: #000000 !important;
   border: 1px solid #dddddd !important;
   border-bottom-color: transparent !important;
   cursor: default;
+  padding: 8px;
+  font-size: 14px;
 }
 .nav-tabs.nav-justified {
   width: 100%;
@@ -5374,7 +5380,7 @@ button.close {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
   min-height: 16.428571429px;
-  background-color: #33458B;
+  background-color: #000000;
 }
 .modal-header .close {
   margin-top: -2px;
@@ -6139,7 +6145,7 @@ ol.progtrckr li.progtrckr-todo:before {
 
 .margenHeadTabla{
   margin: 0 -15px 0 -15px;
-  padding: 3px 0;
+  padding: 6px 8px;
 }
 .k-textbox>input, .k-autocomplete
 .k-input, .k-picker-wrap
@@ -6207,7 +6213,7 @@ ol.progtrckr li.progtrckr-todo:before {
 
 .card-categoria-titulo {
   color: #000;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 .footer-login-simple {
@@ -6506,4 +6512,69 @@ ol.progtrckr li.progtrckr-todo:before {
 .dropdown:hover .dropbtn {
   background-color: #FFFFFF;
   color: #000000;
+}
+
+
+.error-combo {
+  border: none !important;
+}
+
+.error-combo input {
+  border: 1px solid #d9514e;
+  border-right: none;
+}
+
+.success-combo {
+  border: none !important;
+}
+
+.success-combo input {
+  border: 1px solid #69b869;
+  border-right: none;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.05, 1.05, 1.05);
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.pulse:hover {
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
 }

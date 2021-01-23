@@ -63,7 +63,6 @@
                                                       'col-sm-6': ocultarBusqueda == true }">
 
                 <h4 class="panel-title">
-                    <i class="ixs ixs-{{icono}}"></i>
                     <span>{{titulo}}</span></h4>
             </div>
             <!-- Busqueda -->
@@ -307,21 +306,27 @@
                         <span ng-if="columna.dato == undefined && columna.tooltip!=undefined && columna.filtro!=undefined"
                               tooltip
                               data-toggle="tooltip"
-                              ng-class="{'pull-right':columna.align=='right'}" title="{{registro[columna.tooltip]}}">{{registro[columna.valor]}}</span>
+                              ng-class="{'pull-right':columna.align=='right'}" title="{{registro[columna.tooltip]}}">
+                            {{registro[columna.valor] | filtroDinamico:columna.filtro}}
+                        </span>
 
 
                         <span ng-if="columna.dato == undefined && columna.filtro!=undefined && columna.tooltip == undefined"
                               ng-class="{'badge-success badge badge-primary badge-btn': config.indVigencia!=undefined && columna.valor==config.indVigencia.colInd && tablaCtrl.validaVigencia(registro),
-                             'pull-right':columna.filtro=='currency' || columna.align=='right' }">{{registro[columna.valor]}}</span>
+                             'pull-right':columna.filtro=='currency' || columna.align=='right' }">
+                            {{registro[columna.valor] | filtroDinamico:columna.filtro}}
+                        </span>
 
 
-                        <span ng-if="((columna.dato != undefined && columna.valorSelect == undefined ) && columna.seleccionarTabla != 'S' &&
+                        <span ng-if="((columna.dato != undefined && columna.valorSelect == undefined ) &&
+                                       columna.seleccionarTabla != 'S' &&
                                       !config.permisos.modificar) || registro[columna.validarCampo] == 'N'">
                             {{registro[columna.valor]}}
                         </span>
 
                         <span style="width: 270px!important;"
-                              ng-if="((columna.dato != undefined && columna.valorSelect != undefined )  && !config.permisos.modificar)">
+                              ng-if="((columna.dato != undefined && columna.valorSelect != undefined )  &&
+                                      !config.permisos.modificar)">
                             <strong>{{registro[columna.valor]}}</strong>
                         </span>
 

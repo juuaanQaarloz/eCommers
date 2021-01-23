@@ -13,7 +13,6 @@
     <!-- Librerias -->
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/lodash/lodash.js"></script>
 
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
 
@@ -54,8 +53,8 @@
     <script src="librerias/kendo/kendo.culture.es-MX.min.js"></script>
 
     <script src="bower_components/angular-ui-carousel/dist/ui-carousel.js"></script>
-
-
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
 
     <!-- Modulos: eAspayb -->
     <script src="ecommers.module.js"></script>
@@ -89,6 +88,7 @@
     <script src="Modulos/Acceso/inicio/inicio.controller.js"></script>
 
     <script src="Modulos/MenuSuperior/menuSuperior.controller.js"></script>
+    <script src="Modulos/BarraFooter/BarraFooter.controller.js"></script>
 
     <script src="Modulos/AdministracionDatos/AdministracionDatos.controller.js"></script>
     <script src="Modulos/AdministracionDatos/Usuario/usuario.controller.js"></script>
@@ -101,5 +101,8 @@
     <div ng-include="'Modulos/MenuSuperior/menuSuperior.html'"></div>
 
     <div ng-view></div>
+
+    <div ng-include="'Modulos/BarraFooter/BarraFooter.html'"></div>
+
   </body>
 </html>

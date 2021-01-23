@@ -4,52 +4,63 @@
         <div class="menuSuperior" style="padding: 10px;">
             <div class="col-sm-3" style="text-align: center">
                 <img src="img/temas/dark/jcLogo.jpg"
-                     style="height: 60px; width: 60%; cursor: pointer"
+                     style="height: 60px; width: 60%; cursor: pointer" class="pulse animated"
                      ng-click="menuSuperiorCtrl.irAPortal();">
             </div>
 
-            <div class="col-sm-2 pull-right" style="margin-top: 15px; text-align: center">
+            <div class="col-sm-3 pull-right" style="margin-top: 15px; text-align: center">
 
                 <div class="dropdown">
                     <div class="dropbtn"
-                         ng-if="!menuSuperiorCtrl.usuarioSesion"
+                         ng-if="!$root.usuarioSesion"
                          ng-click="menuSuperiorCtrl.mdlLogin()">
-                        Iniciar Sesión 1&nbsp;&nbsp;
-                        <i class="ixs ixs-usuario" style="font-size: 20px;color: #274488;"></i>
-                    </div>
-                    <div class="dropbtn" ng-if="menuSuperiorCtrl.usuarioSesion">
                         Iniciar Sesión&nbsp;&nbsp;
                         <i class="ixs ixs-usuario" style="font-size: 20px;color: #274488;"></i>
                     </div>
-                    <div class="dropdown-content" ng-if="menuSuperiorCtrl.usuarioSesion">
-                        <a><i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i> JUAN NUTE</a>
-                        <a><i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i> CORREO ELECTRONICO</a>
-                        <a><i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i> TIPO DE USUARIO</a>
-                        <a ng-click="menuSuperiorCtrl.irAdminPantalla();">
+                    <div class="dropbtn" ng-if="$root.usuarioSesion"
+                         ng-init="menuSuperiorCtrl.usuarioSesion = $root.usuarioSesion">
+                        Hola! {{$root.usuarioSesion.nombreUsuario | limitTo:10}}...
+                        <i class="ixs ixs-usuario" style="font-size: 20px;color: #274488;"></i>
+                    </div>
+                    <div class="dropdown-content" ng-if="$root.usuarioSesion">
+                        <a><i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i> {{$root.usuarioSesion.nombreUsuario}} </a>
+                        <a><i class="ixs ixs-correoSend" style="font-size: 15px;color: #274488;"></i> {{$root.usuarioSesion.email}} </a>
+                        <a>
+                            <i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i>
+                            <span ng-if="$root.usuarioSesion.tipoUsuario == 'A'"> Administrador</span>
+                            <span ng-if="$root.usuarioSesion.tipoUsuario != 'A'"> Comprador </span>
+                        </a>
+                        <a ng-click="menuSuperiorCtrl.irAdminPantalla();"
+                           ng-if="$root.usuarioSesion.tipoUsuario == 'A'">
                             <i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i>
                             Administración de Pagina
+                        </a>
+                        <a ng-click="menuSuperiorCtrl.cerrarSesion();"
+                           ng-if="$root.usuarioSesion.tipoUsuario == 'A'">
+                            <i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i>
+                            Cerrar Sesión
                         </a>
                     </div>
                 </div>
             </div>
             <div class="col-sm-3 pull-right" style="margin-top: 15px">
-                <div class="form-group">
+                <div class="form-group" ng-if="!$root.ocultarBuscarMenuSuperior">
                     <div class="input-group margin-bottom-sm">
                         <input class="form-control" style="height: 30px"
                                type="text" placeholder="Buscar Producto"
-                               ng-model="tablaCtrl.busqueda">
-                        <span class="input-group-addon"  style="height: 30px">
-                                <i class="ixs ixs-buscar"></i>
-                            </span>
+                               ng-model="menuSuperiorCtrl.busqueda">
+                        <span class="input-group-addon"  style="height: 30px" ng-click="menuSuperiorCtrl.buscarProducto();">
+                            <i class="ixs ixs-buscar"></i>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div ng-include="'MenuSuperior/Modals/mdlLogin.html'"></div>
-    <div ng-include="'MenuSuperior/Modals/mdlPoliticas.html'"></div>
-    <div ng-include="'MenuSuperior/Modals/mdlVentasUsuario.html'"></div>
+    <div ng-include="'Modulos/MenuSuperior/Modals/mdlLogin.html'"></div>
+    <div ng-include="'Modulos/MenuSuperior/Modals/mdlSoloResgistro.html'"></div>
+    <div ng-include="'Modulos/MenuSuperior/Modals/mdlVentasUsuario.html'"></div>
 
 </div>
 

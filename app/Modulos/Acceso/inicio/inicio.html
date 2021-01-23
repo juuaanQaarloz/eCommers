@@ -1,10 +1,10 @@
 <div ng-controller="InicioControlador as inicioCtrl">
 
     <div class="row" style="padding: 0 15%">
-        <div class="col-sm-12" style="margin-top: 45px">
+        <div class="col-sm-12" style="margin-top: 45px" ng-if="inicioCtrl.promocionesActivas.length > 0">
             <div class="col-sm-12" style="padding: 0"
                  ng-if="inicioCtrl.viewCarrucel">
-                <ui-carousel slides="inicioCtrl.dataArray"
+                <ui-carousel slides="inicioCtrl.promocionesActivas"
                              slides-to-show="1"
                              initial-slide="1"
                              autoplay="true"
@@ -13,19 +13,19 @@
                              buttons-slide="true">
                     <carousel-item>
                         <div class="image">
-                            <img src="{{ item.src }}"
+                            <img src="{{  item.urlImagen }}"
                                  style="width: 100%; height: 500px">
                         </div>
                     </carousel-item>
                 </ui-carousel>
             </div>
         </div>
-        <div class="col-sm-12" style="margin-top: 50px">
+        <div class="col-sm-12" style="margin-top: 50px" ng-if="inicioCtrl.categorias.length > 0">
             <div class="col-sm-12 text-center wrapper">
                 <p class="slogan"><span class="span-titulos">DEPARTAMENTOS</span></p>
             </div>
-            <div class="col-sm-12" style="margin-top: 25px">
-                <ui-carousel slides="inicioCtrl.dataArray"
+            <div class="col-sm-12" style="margin-top: 25px"  ng-if="inicioCtrl.categorias.length > 3">
+                <ui-carousel slides="inicioCtrl.categorias"
                              slides-to-show="3"
                              autoplay="true"
                              autoplay-speed="5000"
@@ -37,17 +37,17 @@
 
                         <div style="height: 320px; padding: 5%">
                             <div>
-                                <img src="{{item.src}}"
+                                <img src="{{item.urlImagen}}"
                                      style="width: 100%; height: 200px"
                                      ng-click="inicioCtrl.irADetalleProductoCat(item)">
                             </div>
                             <div class="card-categoria">
 
                                 <div class="card-categoria-titulo">
-                                    TITULO
+                                    {{ item.nombreCategoria }}
                                 </div>
                                 <div class="card-categoria-sub-titulo">
-                                    djkh fhasjkd jkasdh jkhd jash dlas hdkls djas djlasdsld
+                                    {{ item.descripcion }}
                                 </div>
 
                             </div>
@@ -57,6 +57,31 @@
                     </carousel-item>
                 </ui-carousel>
             </div>
+            <div class="col-sm-12 text-center" style="margin-top: 25px"  ng-if="inicioCtrl.categorias.length <= 3">
+                <div class="col-sm-4"
+                     ng-class="{'col-sm-offset-4': inicioCtrl.categorias.length == 1,
+                                'col-sm-offset-2': inicioCtrl.categorias.length == 2}"
+                     style="height: 320px;"
+                     ng-repeat="item in inicioCtrl.categorias">
+                    <div>
+                        <img src="{{item.urlImagen}}"
+                             style="width: 100%; height: 200px"
+                             ng-click="inicioCtrl.irADetalleProductoCat(item)">
+                    </div>
+                    <div class="card-categoria">
+                        <div class="card-categoria-titulo">
+                            <b>{{ item.nombreCategoria }}</b>
+                        </div>
+                        <div class="card-categoria-sub-titulo"
+                             style="margin-top: 5px; font-size: 17px">
+                            {{ item.descripcion }}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
         </div>
         <div class="col-sm-12" style="margin-top: 50px">
 
@@ -66,32 +91,34 @@
 
             <div class="col-sm-12">
                 <div class="col-sm-3" style="margin: 15px 0;"
-                     ng-repeat="loMasVendido in inicioCtrl.losMasVendido">
+                     ng-repeat="loMasVendido in inicioCtrl.productosActivos">
                     <div style="height: 210px; padding: 5%">
-                        <div>
-                            <div class="card-categoria-titulo" style="text-align: center">
-                               TITULO
+                        <div style="background: black">
+                            <div class="card-categoria-titulo" style="text-align: center; color: white !important;">
+                              <b> {{loMasVendido.nombreProducto}} </b>
                             </div>
                         </div>
                         <div>
-                            <img src="{{loMasVendido.src}}"
-                                 style="width: 100%; height: 130px">
+                            <img src="{{loMasVendido.urlImagen}}" style="width: 100%; height: 130px">
                         </div>
                         <div class="card-lomas-vendido">
-                            <div class="card-categoria-sub-titulo">
-                                djkh fhasjkd jkasdh jkhd jash dlas hdkls djas djlasdsld
+                            <div class="card-categoria-sub-titulo" style="font-size: 17px">
+                                {{loMasVendido.descripcion}}
+                            </div>
+                            <div class="card-categoria-sub-titulo" style="font-size: 15px; text-align: right">
+                                <b>${{loMasVendido.precio}}</b>
                             </div>
                             <div style="margin-top: 10px">
                                 <div class="col-sm-12"  style="padding: 0">
                                     <button class="buttonIgnorar"
                                             ng-click="inicioCtrl.irADetalleProducto(loMasVendido)">
-                                        <span>{{"Detalle"}}</span>
+                                        <span>{{"DETALLE"}}</span>
                                     </button>
                                 </div>
                                 <div class="col-sm-12" style="padding: 0; margin-top: 10px">
                                     <button class="buttonAceptar"
                                             ng-click="inicioCtrl.irADetalleVenta(loMasVendido)">
-                                        <span>{{"Comprar"}}</span>
+                                        <span>{{"COMPRAR"}}</span>
                                     </button>
                                 </div>
                             </div>
@@ -102,87 +129,6 @@
             </div>
         </div>
 
-    </div>
-    <div class="row" style="margin-top: 2%;">
-        <div class="col-sm-12 cuadro-texto-footer" >
-            <div class="col-sm-12"
-                 style="text-align: right; padding: 5% 2% 3% 0 ">
-                <div class="col-sm-9">&nbsp;&nbsp;&nbsp;</div>
-                <div class="col-md-3">
-                    <a target="_blank"
-                       href="">
-                        <img src="img/redesSociales/facebook.png">
-                    </a>&nbsp;&nbsp;&nbsp;
-                    <a target="_blank"
-                       href="">
-                        <img src="img/redesSociales/twitter.png">
-                    </a>&nbsp;&nbsp;&nbsp;
-                    <a target="_blank"
-                       href="">
-                        <img src="img/redesSociales/youtube.png">
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-3 col-sm-offset-2">
-                <div class="col-sm-12">
-                    <b class="texto-politicas-titulo">Acerca de Nosotros</b>
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Quienes Somos
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Oficinas
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Tiendas
-                </div>
-            </div>
-            <div class="col-sm-3" >
-                <div class="col-sm-12">
-                    <b class="texto-politicas-titulo">Ayuda al Cliente</b>
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Guia de Compras
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Pago
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Envio
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Devoluciones
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Cambios
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="col-sm-12 caja-texto-footer">
-                    <b class="texto-politicas-titulo">Politicas</b>
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Politica de Privacidad
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Politica Cookies
-                </div>
-                <div class="col-sm-12 caja-texto-footer texto-politicas">
-                    Aviso Copyright
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="footer-login-simple">
-                <div style="color: white; width: 100%; text-align: center; padding-top: 7px;">
-                    <div>
-                        Exclusividad de Distribución JC 2021
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 

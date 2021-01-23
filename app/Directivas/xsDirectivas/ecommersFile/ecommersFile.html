@@ -37,7 +37,7 @@
         </label> &nbsp;&nbsp;
         {{fileCtrl.file.name}}
         <input type="file" id="agregar-documento{{fileCtrl.idFile}}"
-               easpayb-file-agregar-model
+               ecommers-file-agregar-model
                ng-model="fileCtrl.file"
                ng-change="fileCtrl.actualizar()"
                ng-required="requerido"
@@ -55,7 +55,7 @@
         </label>&nbsp;&nbsp;
        {{fileCtrl.file.name?fileCtrl.file.name:nombreArchivoEditable}}
         <input type="file" id="editar-documento{{fileCtrl.idFile}}"
-               easpayb-file-agregar-model
+               ecommers-file-agregar-model
                ng-model="fileCtrl.file"
                ng-change="fileCtrl.actualizar()"
                ng-required="requerido && fileCtrl.file.name == nombreArchivoEditable"
