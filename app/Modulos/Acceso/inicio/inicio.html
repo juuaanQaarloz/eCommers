@@ -1,6 +1,9 @@
 <div ng-controller="InicioControlador as inicioCtrl">
 
     <div class="row" style="padding: 0 15%">
+        <div class="col-sm-12 text-center wrapper" style="margin-top: 40px">
+            <p class="slogan"><span class="span-titulos">PROMOCIONES</span></p>
+        </div>
         <div class="col-sm-12" style="margin-top: 45px" ng-if="inicioCtrl.promocionesActivas.length > 0">
             <div class="col-sm-12" style="padding: 0"
                  ng-if="inicioCtrl.viewCarrucel">
@@ -42,12 +45,12 @@
                                      ng-click="inicioCtrl.irADetalleProductoCat(item)">
                             </div>
                             <div class="card-categoria">
-
                                 <div class="card-categoria-titulo">
                                     {{ item.nombreCategoria }}
                                 </div>
                                 <div class="card-categoria-sub-titulo">
-                                    {{ item.descripcion }}
+                                    <span ng-if="item.descripcion.length > 55">{{ item.descripcion | limitTo: 48 }}...</span>
+                                    <span ng-if="item.descripcion.length <= 55">{{ item.descripcion }}</span>
                                 </div>
 
                             </div>
@@ -86,7 +89,7 @@
         <div class="col-sm-12" style="margin-top: 50px">
 
             <div class="col-sm-12 text-center wrapper">
-                <p class="slogan"><span class="span-titulos">LO MAS VENDIDO</span></p>
+                <p class="slogan"><span class="span-titulos">NOVEDADES</span></p>
             </div>
 
             <div class="col-sm-12">
@@ -102,11 +105,12 @@
                             <img src="{{loMasVendido.urlImagen}}" style="width: 100%; height: 130px">
                         </div>
                         <div class="card-lomas-vendido">
-                            <div class="card-categoria-sub-titulo" style="font-size: 17px">
-                                {{loMasVendido.descripcion}}
+                            <div class="card-categoria-sub-titulo" style="font-size: 15px">
+                                <span ng-if="loMasVendido.descripcion.length > 55">{{ loMasVendido.descripcion | limitTo: 48 }}...</span>
+                                <span ng-if="loMasVendido.descripcion.length <= 55">{{ loMasVendido.descripcion }}</span>
                             </div>
                             <div class="card-categoria-sub-titulo" style="font-size: 15px; text-align: right">
-                                <b>${{loMasVendido.precio}}</b>
+                                <b>${{loMasVendido.precio | number}}</b>
                             </div>
                             <div style="margin-top: 10px">
                                 <div class="col-sm-12"  style="padding: 0">

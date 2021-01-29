@@ -8,14 +8,15 @@
         </div>
 
         <div ng-class="{'col-sm-4': productoCtrl.categorias.length == 1,
-                        'col-sm-2': productoCtrl.categorias.length == 2}">
+                        'col-sm-2': productoCtrl.categorias.length == 2,
+                        'col-sm-1': productoCtrl.categorias.length == 3}">
             &nbsp;
             &nbsp;
             &nbsp;
             &nbsp;
         </div>
-        <div class="col-sm-4"
-             style="height: 200px; padding: 5%; cursor: pointer"
+        <div class="col-sm-3"
+             style="height: 220px; padding: 5%; cursor: pointer"
              ng-repeat="item in productoCtrl.categorias">
             <div>
                 <img src="{{item.urlImagen}}"
@@ -37,7 +38,7 @@
     <div class="col-sm-12" style="margin-top: 50px"
          ng-if="productoCtrl.producto || productoCtrl.productosList.length > 0">
         <div class="col-sm-11 col-sm-offset-1 text-center wrapper">
-            <p class="slogan"><span class="span-titulos">PRODUCTOS<span ng-if="productoCtrl.categoriaSeleccionado">&nbsp;"{{productoCtrl.categoriaSeleccionado.nombreCategoria|uppercase}}"</span></span></p>
+            <p class="slogan"><span class="span-titulos">PRODUCTOS</span></p>
         </div>
         <div class="col-sm-3"
              style="margin-top: 15px; ">
@@ -58,11 +59,7 @@
                                 <div class="margin-bottom-sm">
                                     <input class="form-control" style="height: 30px"
                                            type="text" placeholder="Producto"
-                                           ng-model="productoCtrl.buscar.textBuscar"
-                                           ng-change="productoCtrl.busqueda.rangoPreciosDe = null;
-                                                        productoCtrl.busqueda.rangoPreciosAl = null;
-                                                        productoCtrl.rangoPreciosDe = null;
-                                                        productoCtrl.rangoPreciosAl = null;">
+                                           ng-model="productoCtrl.busqueda.textBuscar">
                                 </div>
                             </div>
                         </div>
@@ -78,8 +75,7 @@
                                             k-options="productoCtrl.cbxRangoPrecios"
                                             k-data-source="productoCtrl.rangoPrecios"
                                             ng-model="productoCtrl.busqueda.rangoPreciosDe"
-                                            k-ng-model="productoCtrl.rangoPreciosDe"
-                                            k-on-change="productoCtrl.busqueda.textBuscar = null;">
+                                            k-ng-model="productoCtrl.rangoPreciosDe">
                                     </select>
                                 </div>
                             </div>
@@ -93,8 +89,7 @@
                                             k-options="productoCtrl.cbxRangoPrecios"
                                             k-data-source="productoCtrl.rangoPrecios"
                                             ng-model="productoCtrl.busqueda.rangoPreciosAl"
-                                            k-ng-model="productoCtrl.rangoPreciosAl"
-                                            k-on-change="productoCtrl.busqueda.textBuscar = null;">
+                                            k-ng-model="productoCtrl.rangoPreciosAl">
                                     </select>
                                 </div>
                             </div>
@@ -104,7 +99,7 @@
                     <div class="row">
                         <div class="col-sm-12"
                              style="margin-bottom: 5px"
-                             ng-if="form.$valid && ( productoCtrl.buscar.textBuscar || (productoCtrl.busqueda.rangoPreciosAl && productoCtrl.busqueda.rangoPreciosDe))">
+                             ng-if="form.$valid && ( productoCtrl.busqueda.textBuscar || (productoCtrl.busqueda.rangoPreciosAl && productoCtrl.busqueda.rangoPreciosDe))">
                             <div style="height: 35px; font-size: 15px;">
                                 <button class="buttonAceptar"
                                         ng-click="productoCtrl.buscarProductosConText(true)">
@@ -116,9 +111,9 @@
                 </form>
             </div>
         </div>
-        <div class="col-sm-7"
+        <div class="col-sm-6"
              ng-if="productoCtrl.producto"
-             style="margin-top: 15px">
+             style="margin-top: 15px; margin-left: 20px">
             <div style="height: 500px; padding: 5%">
                 <div style="background: black">
                     <div class="card-categoria-titulo" style="text-align: center; color: white !important;">
@@ -159,7 +154,7 @@
         </div>
         <div class="col-sm-8" ng-if="!productoCtrl.producto">
             <div class="col-sm-12">
-                <div class="col-sm-4" style="margin: 15px 0;"
+                <div class="col-sm-4" style="margin: 25px 0;"
                      ng-repeat="prodcts in productoCtrl.productosList">
                     <div style="height: 210px; padding: 5%">
                         <div style="background: black">
@@ -172,11 +167,12 @@
                             <img src="{{prodcts.urlImagen}}"
                                  style="width: 100%; height: 130px">
                         </div>
-                        <div class="card-lomas-vendido">
-                            <div class="card-categoria-sub-titulo">
-                                {{prodcts.descripcion}}
+                        <div class="card-lomas-vendido" style="height: 100px !important;">
+                            <div class="card-categoria-sub-titulo" style="font-size: 15px">
+                                <span ng-if="prodcts.descripcion.length > 55">{{ prodcts.descripcion | limitTo: 52 }}...</span>
+                                <span ng-if="prodcts.descripcion.length <= 55">{{ prodcts.descripcion }}</span>
                             </div>
-                            <div class="card-categoria-sub-titulo text-right">
+                            <div class="card-categoria-sub-titulo text-right" style="font-size: 15px">
                                <b> ${{prodcts.precio}}</b>
                             </div>
                             <div style="margin-top: 10px">
@@ -194,7 +190,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -225,7 +220,7 @@
                                 <div class="margin-bottom-sm">
                                     <input class="form-control" style="height: 30px"
                                            type="text" placeholder="Producto"
-                                           ng-model="productoCtrl.buscar.textBuscar"
+                                           ng-model="productoCtrl.busqueda.textBuscar"
                                            ng-change="productoCtrl.busqueda.rangoPreciosDe = null;
                                                         productoCtrl.busqueda.rangoPreciosAl = null;
                                                         productoCtrl.rangoPreciosDe = null;
@@ -244,7 +239,7 @@
                                             xs-validate-text-kendo-combo-box kendo-combo-box
                                             k-options="productoCtrl.cbxRangoPrecios"
                                             k-data-source="productoCtrl.rangoPrecios"
-                                            ng-model="productoCtrl.buscar.rangoPreciosDe"
+                                            ng-model="productoCtrl.busqueda.rangoPreciosDe"
                                             k-ng-model="productoCtrl.rangoPreciosDe"
                                             k-on-change="productoCtrl.busqueda.textBuscar = null;">
                                     </select>
@@ -259,7 +254,7 @@
                                             xs-validate-text-kendo-combo-box kendo-combo-box
                                             k-options="productoCtrl.cbxRangoPrecios"
                                             k-data-source="productoCtrl.rangoPrecios"
-                                            ng-model="productoCtrl.buscar.rangoPreciosAl"
+                                            ng-model="productoCtrl.busqueda.rangoPreciosAl"
                                             k-ng-model="productoCtrl.rangoPreciosAl"
                                             k-on-change="productoCtrl.busqueda.textBuscar = null;">
                                     </select>

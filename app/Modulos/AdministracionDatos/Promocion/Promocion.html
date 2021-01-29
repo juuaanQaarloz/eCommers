@@ -3,9 +3,14 @@
     <div class="col-sm-12" >
         <xs-tabla icono="personas" titulo="Promociones"
                   config="promocionCtrl.tblPromociones"
-                  datos="promocionCtrl.promociones"
+                  datos="promocionCtrl.promociones" detalle-interno="true"
                   registro-seleccionado="promocionCtrl.promocionesSeleccionado"
                   seleccionar-registro="promocionCtrl.seleccionarPromociones(registro)">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ng-gallery ver-detalle="'true'" images="promocionCtrl.imagenRow"></ng-gallery>
+                </div>
+            </div>
         </xs-tabla>
     </div>
 

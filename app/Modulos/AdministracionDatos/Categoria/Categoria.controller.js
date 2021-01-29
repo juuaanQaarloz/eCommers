@@ -55,16 +55,17 @@
         function seleccionarCategoria(row) {
             categoriaCtrl.categoriaSeleccionado = row;
             categoriaCtrl.categoriaEditable = angular.copy(categoriaCtrl.categoriaSeleccionado);
+            categoriaCtrl.imagenRow = [ {thumb: row.urlImagen, img: row.urlImagen, nombre: row.imagen} ];
             consultarProducto();
         }
 
         function agregarCategoria() {
             var nameImagen = angular.copy(categoriaCtrl.archivoCategoria.name);
-            var nombrePromocion = angular.copy(categoriaCtrl.nuevoProducto.nombreCategoria);
+            var nombrePromocion = angular.copy(categoriaCtrl.nuevaCategoria.nombreCategoria);
             var mapa = 0 + ",";
-            mapa += categoriaCtrl.nuevoProducto.nombreCategoria + ",";
-            mapa += categoriaCtrl.nuevoProducto.descripcion + ",";
-            mapa += (categoriaCtrl.nuevoProducto.indVigente?categoriaCtrl.nuevoProducto.indVigente:'N') + ",";
+            mapa += categoriaCtrl.nuevaCategoria.nombreCategoria + ",";
+            mapa += categoriaCtrl.nuevaCategoria.descripcion + ",";
+            mapa += (categoriaCtrl.nuevaCategoria.indVigente?categoriaCtrl.nuevaCategoria.indVigente:'N') + ",";
             mapa += (categoriaCtrl.archivoCategoria?categoriaCtrl.archivoCategoria.name:"SN");
             var datosMapa = {
                 pcAccion:  "INSERT",
@@ -73,7 +74,7 @@
 
             var promesa = serviciosRest.crudTblCategoria(datosMapa).$promise;
             promesa.then(function (respuesta) {
-                categoriaCtrl.nuevoProducto = {};
+                categoriaCtrl.nuevaCategoria = {};
                 consultarCategorias(nombrePromocion, nameImagen);
             });
             promesa.catch(function (error) {
@@ -126,26 +127,28 @@
         }
 
         function eliminarCategoria() {
-            var datosMapa = {
-                pcAccion:  "DELETE",
-                pnIdUsuario: categoriaCtrl.categoriaSeleccionado.idCategoria
-            };
-            var promesa = serviciosRest.crudTblCategoria(datosMapa).$promise;
-            promesa.then(function (respuesta) {
+            if(categoriaCtrl.productos.length == 0) {
+                var datosMapa = {
+                    pcAccion:  "DELETE",
+                    pnIdUsuario: categoriaCtrl.categoriaSeleccionado.idCategoria
+                };
+                var promesa = serviciosRest.crudTblCategoria(datosMapa).$promise;
+                promesa.then(function (respuesta) {
 
-                var ruta = "categorias/" + categoriaCtrl.categoriaSeleccionado.idCategoria + "/" + categoriaCtrl.categoriaSeleccionado.imagen;
-                var promesaArchivo = serviciosRest.subirArchivoGenerico(ruta, null, 'delete');
-                promesaArchivo.then(function (respuesta) {
-                    categoriaCtrl.categoriaSeleccionado = null;
-                    consultarCategorias();
+                    var ruta = "categorias/" + categoriaCtrl.categoriaSeleccionado.idCategoria + "/" + categoriaCtrl.categoriaSeleccionado.imagen;
+                    var promesaArchivo = serviciosRest.subirArchivoGenerico(ruta, null, 'delete');
+                    promesaArchivo.then(function (respuesta) {
+                        categoriaCtrl.categoriaSeleccionado = null;
+                        consultarCategorias();
+                    });
+                    promesaArchivo.catch(function (respuesta) {
+                        alertasServicios.desplegarMensaje(error);
+                    });
                 });
-                promesaArchivo.catch(function (respuesta) {
+                promesa.catch(function (error) {
                     alertasServicios.desplegarMensaje(error);
                 });
-            });
-            promesa.catch(function (error) {
-                alertasServicios.desplegarMensaje(error);
-            });
+            } else alertasServicios.desplegarMensaje("No se puede eliminar la categoria porque tiene productos registrados");
         }
 
         function consultarProducto(nombre, nomImagen) {
@@ -158,7 +161,7 @@
                 angular.forEach(respuesta, function (produtc) {
                     produtc.urlImagen = urlArchivos + "productos/" + produtc.idProducto + "/" + produtc.imagen;
                     if(nombre && nomImagen && produtc.nombreProducto == nombre && produtc.imagen == nomImagen) {
-                        crudArchivoGenerico(produtc.idProducto, "productos");
+                        crudArchivoGenericoProducto(produtc.idProducto, "productos");
                     }
                 });
                 categoriaCtrl.productos = respuesta;
@@ -171,12 +174,13 @@
         function seleccionarProducto(row) {
             categoriaCtrl.catProductoSeleccionado = row;
             categoriaCtrl.catProductoEditable = angular.copy(categoriaCtrl.catProductoSeleccionado);
+            categoriaCtrl.imagenRowP = [ {thumb: row.urlImagen, img: row.urlImagen, nombre: row.imagen} ];
         }
 
         function agregarProducto() {
 
             var nameImagen = angular.copy(categoriaCtrl.archivoProducto.name);
-            var nombrePromocion = angular.copy(categoriaCtrl.nuevoProducto.nombreProducto);
+            var nombrePromocion = angular.copy(categoriaCtrl.nuevaProducto.nombreProducto);
 
             var mapa = 0 + ",";
             mapa += categoriaCtrl.categoriaSeleccionado.idCategoria + ",";
@@ -186,7 +190,7 @@
             mapa += categoriaCtrl.nuevaProducto.noExistencias + ",";
             mapa += 0 + ",";
             mapa += (categoriaCtrl.archivoProducto?categoriaCtrl.archivoProducto.name:"SN") + ",";
-            mapa += (categoriaCtrl.nuevoProducto.indVigente?categoriaCtrl.nuevoProducto.indVigente:'N') + ",";
+            mapa += (categoriaCtrl.nuevaProducto.indVigente?categoriaCtrl.nuevaProducto.indVigente:'N') + ",";
             mapa += categoriaCtrl.nuevaProducto.precio;
             var datosMapa = {
                 pcAccion:  "INSERT",
@@ -241,13 +245,13 @@
                     var ruta = "productos/" + producto.idProducto + "/" + producto.imagen;
                     var promesaArchivo = serviciosRest.subirArchivoGenerico(ruta, null, 'delete');
                     promesaArchivo.then(function (respuesta) {
-                        crudArchivoGenerico(producto.idProducto, "productos");
+                        crudArchivoGenericoProducto(producto.idProducto, "productos");
                     });
                     promesaArchivo.catch(function (respuesta) {
                         alertasServicios.desplegarMensaje(error);
                     });
                 }
-                consultarCategorias();
+                consultarProducto();
             });
             promesa.catch(function (error) {
                 alertasServicios.desplegarMensaje(error);
@@ -270,7 +274,7 @@
                 var promesaArchivo = serviciosRest.subirArchivoGenerico(ruta, null, 'delete');
                 promesaArchivo.then(function (respuesta) {
                     categoriaCtrl.catProductoSeleccionado = null;
-                    consultarCategorias();
+                    consultarProducto();
                 });
                 promesaArchivo.catch(function (respuesta) {
                     alertasServicios.desplegarMensaje(error);
@@ -283,12 +287,24 @@
 
         function crudArchivoGenerico(idPromocion, tipo) {
             var ruta = tipo + "/" + idPromocion + "/" ;
-            var promesaArchivo = serviciosRest.subirArchivoGenerico(ruta,
-                (categoriaCtrl.archivoCategoria?categoriaCtrl.archivoCategoria:(categoriaCtrl.archivoCategoriaE?categoriaCtrl.archivoCategoriaE:(categoriaCtrl.archivoProducto?categoriaCtrl.archivoProducto:categoriaCtrl.archivoProductoE))),
+            var promesaArchivo = serviciosRest.subirArchivoGenerico(ruta, (categoriaCtrl.archivoCategoria?categoriaCtrl.archivoCategoria:categoriaCtrl.archivoCategoriaE),
                 'insert');
             promesaArchivo.then(function (respuesta) {
                 categoriaCtrl.archivoCategoria = null;
                 categoriaCtrl.archivoCategoriaE = null;
+            });
+            promesaArchivo.catch(function (respuesta) {
+                alertasServicios.desplegarMensaje(error);
+            });
+        }
+        function crudArchivoGenericoProducto(idPromocion, tipo) {
+            var ruta = tipo + "/" + idPromocion + "/" ;
+            var promesaArchivo = serviciosRest.subirArchivoGenerico(ruta,
+                (categoriaCtrl.archivoProducto?categoriaCtrl.archivoProducto:categoriaCtrl.archivoProductoE),
+                'insert');
+            promesaArchivo.then(function (respuesta) {
+                categoriaCtrl.archivoProducto = null;
+                categoriaCtrl.archivoProductoE = null;
             });
             promesaArchivo.catch(function (respuesta) {
                 alertasServicios.desplegarMensaje(error);

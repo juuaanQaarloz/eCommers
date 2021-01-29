@@ -83,6 +83,18 @@
                 {valor: 'nombreUsuario', tipo: 'string', descripcion: 'Comprador'},
             ]
         })
+        .value('tblMisProductoVenta', {
+            id: 'idTablaMisProductoVenta',
+            paginacion: [10, 30, 50, 100],
+            permisos: {agregar: false, borrar: false, modificar: false, consultar: true},
+            modals: {agregar: '', borrar: '', modificar: ''},
+            columnas: [
+                {valor: 'idVenta', tipo: 'string', descripcion: 'No de Venta (Transacción)'},
+                {valor: 'fecVenta', tipo: 'string', descripcion: 'Fecha de Venta', filtro: 'fechaSimple'},
+                {valor: 'nombreProducto', tipo: 'string', descripcion: 'Producto Comprado'},
+                {valor: 'mtoVenta', tipo: 'string', descripcion: 'Mto de Venta', filtro: 'number'},
+            ]
+        })
 
     ;
 })();

@@ -115,6 +115,7 @@
         function seleccionarPromociones(row) {
             promocionCtrl.promocionesSeleccionado = row;
             promocionCtrl.promocionesEditable = angular.copy(promocionCtrl.promocionesSeleccionado);
+            promocionCtrl.imagenRow = [ {thumb: row.urlImagen, img: row.urlImagen, nombre: row.imagen} ];
             consultarProductosFront(promocionCtrl.promocionesSeleccionado.idCategoria);
         }
 

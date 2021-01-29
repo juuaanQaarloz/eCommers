@@ -6213,7 +6213,7 @@ ol.progtrckr li.progtrckr-todo:before {
 
 .card-categoria-titulo {
   color: #000;
-  font-size: 20px;
+  font-size: 17px;
 }
 
 .footer-login-simple {
@@ -6577,4 +6577,29 @@ ol.progtrckr li.progtrckr-todo:before {
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+}
+
+.titulo-politicas {
+  font-size: 15px;
+  padding: 10px;
+}
+
+.panel-logo {
+  /* background-color: #fff;*/
+  border: 1px solid transparent;
+  background-image: linear-gradient(#000000, #000000),
+  linear-gradient(#000000, #000000),
+  linear-gradient(#000000, #000000),
+  linear-gradient(#000000, #000000);
+  background-repeat: no-repeat;
+  background-size: 10px 38%, 15% 10px, 10px 38%, 15% 10px, calc(100% - 8px) calc(100% - 8px);
+  background-position: left bottom, left bottom, right top, right top, 4px 4px;
+}
+
+
+.inside-logo{
+  margin:10px;
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  background-color: #fff;
 }

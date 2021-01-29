@@ -6,7 +6,7 @@
 
     /* @ngInject */
     function InicioControlador($log, tblsServicios, $timeout, serviciosRest, alertasServicios, $scope, $location,
-                               urlArchivos) {
+                               urlArchivos, $rootScope) {
         /* jshint validthis: true */
         var inicioCtrl = this;
 
@@ -14,6 +14,7 @@
         /** Obtener configuracion de Tabla **/
         inicioCtrl.tblTokens = tblsServicios.getTabla('tblsGenerales', 'tblTokens');
         inicioCtrl.urlImagenes = urlArchivos;
+        $rootScope.ocultarBuscarMenuSuperior = false;
 
         /** Funciones del Controlador **/
         activarControlador();

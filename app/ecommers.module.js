@@ -9,6 +9,8 @@
             'toastr',
             'angular-clipboard',
             'ui.carousel',
+            'webStorageModule',
+            'jkuri.gallery',
             'kendo.directives'
         ]);
 })();

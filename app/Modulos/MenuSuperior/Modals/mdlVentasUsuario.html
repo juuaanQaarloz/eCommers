@@ -1,32 +1,111 @@
 <div class="modal fade" id="mdlVentasUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" style="width: 60%">
+    <div class="modal-dialog" style="width: 70%">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header text-center">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">
-                    <i class="ixs ixs-eliminar"></i> Ventas de Version
+                    Mis Compras
                 </h4>
             </div>
             <div class="modal-body">
                 <form class="form-inline" role="form" name="form" novalidate>
 
                     <div class="row">
-                        AQUI VA LAS SECCIONES LA VENTAS DE VERSION
-                    </div>
+                        <div class="col-sm-12" >
+                            <xs-tabla icono="dinero" titulo="Mis Compras"
+                                      config="menuSuperiorCtrl.tblMisProductoVenta"
+                                      datos="menuSuperiorCtrl.misVentas"
+                                      registro-seleccionado="menuSuperiorCtrl.productoVentaSeleccionado"
+                                      seleccionar-registro="menuSuperiorCtrl.seleccionarProductoVenta(registro)"
+                                      detalle-interno="true">
+                                <div class="row" style="padding: 1% 2%">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <b>Direccion de Entrega</b>
+                                            </div>
+                                        </div>
 
-                    <div class="modal-footer" ng-if="form.$valid">
-                        <div style="display: inline-block; margin-left: 15px;">
-                            <div style="display: inline-block;">
-                                <label>Confirmar</label>
-                            </div>
-                            <div style="display: inline-block; margin-left: 5px;">
-                                <button type="button"
-                                        ng-click="promocionCtrl.agregarPromociones()"
-                                        data-dismiss="modal"
-                                        class="btn btn-success">
-                                    <i class="ixs ixs-palomita">
-                                    </i>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label><b>País</b></label>
+                                                <div>
+                                                    {{menuSuperiorCtrl.productoVentaSeleccionado.pais}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label><b>Estado</b></label>
+                                                <div>
+                                                    {{menuSuperiorCtrl.productoVentaSeleccionado.estado}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label><b>Municipio</b></label>
+                                                <div>
+                                                    {{menuSuperiorCtrl.productoVentaSeleccionado.municipio}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <label><b>Ciudad</b></label>
+                                                <div>
+                                                    {{menuSuperiorCtrl.productoVentaSeleccionado.ciudad}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <label><b>Calle</b></label>
+                                                <div>
+                                                    {{menuSuperiorCtrl.productoVentaSeleccionado.calle}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label><b>No Exterior</b></label>
+                                                <div>
+                                                    {{menuSuperiorCtrl.productoVentaSeleccionado.noExt}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <label><b>No Interior</b></label>
+                                                <div>
+                                                    {{menuSuperiorCtrl.productoVentaSeleccionado.noInt}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <label><b>Colonia</b></label>
+                                                <div>
+                                                    {{menuSuperiorCtrl.productoVentaSeleccionado.colonia}}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-sm-4">
+                                                <label><b>Codigo Postal</b></label>
+                                                <div>
+                                                    {{menuSuperiorCtrl.productoVentaSeleccionado.codPos}}
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <label><b>Referencias</b></label>
+                                                <div>
+                                                    {{menuSuperiorCtrl.productoVentaSeleccionado.referencia}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </xs-tabla>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-sm-3 pull-right" style="margin-bottom: 20px">
+                            <div style="font-size: 15px;">
+                                <button class="buttonAceptar" data-dismiss="modal" aria-hidden="true">
+                                    <span>{{"CERRAR"}}</span>
                                 </button>
                             </div>
                         </div>

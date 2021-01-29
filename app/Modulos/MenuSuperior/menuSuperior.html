@@ -2,10 +2,13 @@
 
     <div class="topsuperior">
         <div class="menuSuperior" style="padding: 10px;">
-            <div class="col-sm-3" style="text-align: center">
-                <img src="img/temas/dark/jcLogo.jpg"
-                     style="height: 60px; width: 60%; cursor: pointer" class="pulse animated"
-                     ng-click="menuSuperiorCtrl.irAPortal();">
+            <div class="col-sm-2 panel-logo col-sm-offset-1"
+                 style="text-align: center; margin-left: 25px; margin-top: -7px">
+                <div class="inside-logo">
+                    <img src="img/temas/dark/jcLogo.jpg"
+                         style="height: 50px; width: 92%; cursor: pointer"
+                         ng-click="menuSuperiorCtrl.irAPortal();">
+                </div>
             </div>
 
             <div class="col-sm-3 pull-right" style="margin-top: 15px; text-align: center">
@@ -26,18 +29,22 @@
                         <a><i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i> {{$root.usuarioSesion.nombreUsuario}} </a>
                         <a><i class="ixs ixs-correoSend" style="font-size: 15px;color: #274488;"></i> {{$root.usuarioSesion.email}} </a>
                         <a>
-                            <i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i>
+                            <i class="ixs ixs-clienteexistente1" ng-if="$root.usuarioSesion.tipoUsuario == 'A'" style="font-size: 15px;color: #274488;"></i>
+                            <i class="ixs ixs-validarPersona" ng-if="$root.usuarioSesion.tipoUsuario == 'C'" style="font-size: 15px;color: #274488;"></i>
                             <span ng-if="$root.usuarioSesion.tipoUsuario == 'A'"> Administrador</span>
                             <span ng-if="$root.usuarioSesion.tipoUsuario != 'A'"> Comprador </span>
                         </a>
+                        <a ng-click="menuSuperiorCtrl.misCompras();">
+                            <i class="ixs ixs-mod-cobranza" style="font-size: 15px;color: #274488;"></i>
+                            Mis Compras
+                        </a>
                         <a ng-click="menuSuperiorCtrl.irAdminPantalla();"
                            ng-if="$root.usuarioSesion.tipoUsuario == 'A'">
-                            <i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i>
+                            <i class="ixs ixs-aplicaciones" style="font-size: 15px;color: #274488;"></i>
                             Administración de Pagina
                         </a>
-                        <a ng-click="menuSuperiorCtrl.cerrarSesion();"
-                           ng-if="$root.usuarioSesion.tipoUsuario == 'A'">
-                            <i class="ixs ixs-usuario" style="font-size: 15px;color: #274488;"></i>
+                        <a ng-click="menuSuperiorCtrl.abrirCerrarSesion();">
+                            <i class="ixs ixs-tacha" style="font-size: 15px;color: #274488;"></i>
                             Cerrar Sesión
                         </a>
                     </div>
@@ -61,6 +68,7 @@
     <div ng-include="'Modulos/MenuSuperior/Modals/mdlLogin.html'"></div>
     <div ng-include="'Modulos/MenuSuperior/Modals/mdlSoloResgistro.html'"></div>
     <div ng-include="'Modulos/MenuSuperior/Modals/mdlVentasUsuario.html'"></div>
+    <div ng-include="'Modulos/MenuSuperior/Modals/mdlConfirmaCerrarSesion.html'"></div>
 
 </div>
 

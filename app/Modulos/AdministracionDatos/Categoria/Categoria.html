@@ -7,6 +7,11 @@
                   registro-seleccionado="categoriaCtrl.categoriaSeleccionado"
                   seleccionar-registro="categoriaCtrl.seleccionarCategoria(registro)"
                   detalle-interno="true">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ng-gallery ver-detalle="'true'" images="categoriaCtrl.imagenRow"></ng-gallery>
+                </div>
+            </div>
             <div class="row" style="padding: 2%">
                 <div class="col-sm-12" >
                     <xs-tabla icono="personas" titulo="Productos"
@@ -15,7 +20,8 @@
                               registro-seleccionado="categoriaCtrl.catProductoSeleccionado"
                               seleccionar-registro="categoriaCtrl.seleccionarProducto(registro)"
                               detalle-interno="true">
-                        <div class="row" style="padding: 2%">
+                        <div class="col-sm-12">
+                            <ng-gallery ver-detalle="'true'" images="categoriaCtrl.imagenRowP"></ng-gallery>
                         </div>
                     </xs-tabla>
                 </div>

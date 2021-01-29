@@ -12,15 +12,18 @@
         .controller('MenuSuperiorControlador', MenuSuperiorControlador);
 
     MenuSuperiorControlador.$inject = ['$log', '$location', 'serviciosRest', '$timeout', 'alertasServicios', '$scope',
-    '$rootScope'];
+    '$rootScope', 'webStorage', 'tblsServicios'];
 
     /* @ngInject */
-    function MenuSuperiorControlador($log, $location, serviciosRest, $timeout, alertasServicios, $scope, $rootScope) {
+    function MenuSuperiorControlador($log, $location, serviciosRest, $timeout, alertasServicios, $scope, $rootScope,
+                                     webStorage, tblsServicios) {
         /* jshint validthis: true */
         var menuSuperiorCtrl = this;
 
         menuSuperiorCtrl.usuarioSesion = null;
         $rootScope.ocultarBuscarMenuSuperior = false;
+
+        menuSuperiorCtrl.tblMisProductoVenta = tblsServicios.getTabla('tblsGenerales', 'tblMisProductoVenta');
 
         menuSuperiorCtrl.cbxTipoUsuario = {
             placeholder: "Seleccione",
@@ -43,13 +46,28 @@
         menuSuperiorCtrl.agregarUsuario = agregarUsuario;
         menuSuperiorCtrl.mdlSoloResgistro = mdlSoloResgistro;
         menuSuperiorCtrl.buscarProducto = buscarProducto;
+        menuSuperiorCtrl.abrirCerrarSesion = abrirCerrarSesion;
         menuSuperiorCtrl.cerrarSesion = cerrarSesion;
+        menuSuperiorCtrl.misCompras = misCompras;
+        menuSuperiorCtrl.seleccionarProductoVenta = seleccionarProductoVenta;
 
         $scope.$watch('menuSuperiorCtrl.datosSesion', function (registro) {
             if(registro){
                 menuSuperiorCtrl.usuarioSesion = registro;
             }
         }, true);
+
+        activarControlador();
+
+        function activarControlador() {
+            var usuarioSesion = angular.copy(webStorage.session.get('ecommercejc.usuario'));
+            $timeout(function () {
+                if(usuarioSesion){
+                    menuSuperiorCtrl.usuarioSesion = JSON.parse(usuarioSesion);
+                    $rootScope.usuarioSesion = JSON.parse(usuarioSesion);
+                }
+            });
+        }
 
         /**
          * @ngdoc method
@@ -59,9 +77,11 @@
          * Funcion que se ejecuta con la configuracion inicial
          */
         function buscarProducto() {
-            serviciosRest.setTextoBuscar(menuSuperiorCtrl.busqueda);
+            var textoBuscar = angular.copy(menuSuperiorCtrl.busqueda);
+            serviciosRest.setTextoBuscar(textoBuscar);
             $timeout(function () {
                 $location.path('/producto');
+                menuSuperiorCtrl.busqueda = null;
             });
         }
 
@@ -75,7 +95,10 @@
                 if(respuesta.length > 0) {
                     menuSuperiorCtrl.usuarioSesion = respuesta[0];
                     $rootScope.usuarioSesion = respuesta[0];
+                    webStorage.session.add("ecommercejc.usuario", JSON.stringify(respuesta[0]));
                     serviciosRest.setDatosSesion(menuSuperiorCtrl.usuarioSesion);
+                    menuSuperiorCtrl.usr.username = null;
+                    menuSuperiorCtrl.usr.password = null;
                 } else menuSuperiorCtrl.usuarioSesion = null;
                 angular.element("#mdlLogin").modal("hide");
             });
@@ -153,10 +176,57 @@
             });
         }
 
+        function abrirCerrarSesion() {
+            angular.element("#mdlConfirmaCerrarSesion").modal('show');
+        }
+
         function cerrarSesion() {
             menuSuperiorCtrl.usuarioSesion = null;
             $rootScope.usuarioSesion = null;
-            $location.path('/inicio');
+            webStorage.session.remove('ecommercejc.usuario');
+            $timeout(function () {
+                $location.path('/inicio');
+            });
+        }
+
+        function misCompras() {
+            var promesa = serviciosRest.getProductos({}).$promise;
+            promesa.then(function (respuesta) {
+                menuSuperiorCtrl.productosList = respuesta;
+                productosVentas();
+            });
+            promesa.catch(function (error) {
+                alertasServicios.desplegarMensaje(error);
+            });
+        }
+
+        function productosVentas() {
+            var datosMapa = {
+                pnIdUsuario: $rootScope.usuarioSesion.idUsuario
+            };
+            var promesa = serviciosRest.getVentas(datosMapa).$promise;
+            promesa.then(function (respuesta) {
+                angular.forEach(respuesta, function (venta) {
+                    var indexC = _.findIndex(menuSuperiorCtrl.productosList, function (persons) {
+                        return persons.idProducto == venta.idProducto;
+                    });
+                    if (indexC >= 0) {
+                        venta.nombreProducto = menuSuperiorCtrl.productosList[indexC].nombreProducto;
+                    }
+                });
+
+                menuSuperiorCtrl.misVentas = respuesta;
+                $timeout(function () {
+                    angular.element("#mdlVentasUsuario").modal("show");
+                });
+            });
+            promesa.catch(function (error) {
+                alertasServicios.desplegarMensaje(error);
+            });
+        }
+
+        function seleccionarProductoVenta(row) {
+            menuSuperiorCtrl.productoVentaSeleccionado = row;
         }
 
     }

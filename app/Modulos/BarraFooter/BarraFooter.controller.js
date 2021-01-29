@@ -11,10 +11,10 @@
         .module('eCommers')
         .controller('BarraFooter', BarraFooter);
 
-    BarraFooter.$inject = ['$log', '$location'];
+    BarraFooter.$inject = ['$log', '$location', 'alertasServicios'];
 
     /* @ngInject */
-    function BarraFooter($log, $location) {
+    function BarraFooter($log, $location, alertasServicios) {
         /* jshint validthis: true */
         var barraFooterCtrl = this;
 

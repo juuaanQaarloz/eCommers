@@ -6,8 +6,8 @@
         <div class="col-sm-6 col-sm-offset-2"
              style="margin-top: 15px">
             <div style="height: 500px; padding: 5%">
-                <div>
-                    <div class="card-categoria-titulo" style="text-align: center">
+                <div style="background: black">
+                    <div class="card-categoria-titulo" style="text-align: center; color: white !important;">
                        {{ventaCtrl.producto.nombreProducto}}
                     </div>
                 </div>
@@ -15,8 +15,11 @@
                     <img src="{{ventaCtrl.producto.urlImagen}}" style="width: 100%; height: 400px">
                 </div>
                 <div class="card-lomas-vendido">
-                    <div class="card-categoria-sub-titulo">
+                    <div class="col-sm-9 card-categoria-sub-titulo" style="font-size: 16px">
                         {{ventaCtrl.producto.descripcion}}
+                    </div>
+                    <div class="col-sm-3 card-categoria-sub-titulo" style="font-size: 17px">
+                        ${{ventaCtrl.producto.precio}}
                     </div>
                 </div>
 
@@ -114,7 +117,7 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    Direccion del Usuario
+                                    Dirección de Entrega
                                 </div>
                             </div>
 

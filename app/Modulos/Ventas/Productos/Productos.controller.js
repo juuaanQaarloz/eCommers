@@ -5,9 +5,11 @@
         .module('eCommers')
         .controller('Productos', Productos);
 
-    Productos.$inject = [ '$log', 'tblsServicios', 'serviciosRest', '$timeout', '$location', 'urlArchivos', '$rootScope'];
+    Productos.$inject = [ '$log', 'tblsServicios', 'serviciosRest', '$timeout', '$location', 'urlArchivos',
+        '$rootScope', 'alertasServicios'];
 
-    function Productos( $log, tblsServicios, serviciosRest, $timeout, $location, urlArchivos, $rootScope ) {
+    function Productos( $log, tblsServicios, serviciosRest, $timeout, $location, urlArchivos, $rootScope,
+                        alertasServicios) {
 
         /* jshint validthis: true */
         var productoCtrl = this;
@@ -36,9 +38,9 @@
             {tipo: "5000", idTipo: "5000"},
         ];
 
-        var producto = serviciosRest.getDatosProducto();
-        var categoria = serviciosRest.getDatosProductoCat();
-        var buscraText = serviciosRest.getTextoBuscar();
+        var producto = angular.copy(serviciosRest.getDatosProducto());
+        var categoria = angular.copy(serviciosRest.getDatosProductoCat());
+        var buscraText = angular.copy(serviciosRest.getTextoBuscar());
 
         activarControlador();
 
@@ -54,17 +56,24 @@
             productoCtrl.busqueda = {};
             productoCtrl.rangoPreciosAl = null;
             productoCtrl.rangoPreciosDe = null;
-            console.log();
             if(producto) {
                 productoCtrl.producto = producto;
                 buscarProductosVentas(productoCtrl.producto.idProducto);
             } else if (categoria){
                 buscarPorCategoria(categoria);
             } else if (buscraText){
-                buscarProductosConText(buscraText);
+                productoCtrl.busqueda.textBuscar = buscraText;
+                buscarProductosConText();
             } else {
                 buscarCategoria();
             }
+
+            $timeout(function () {
+                serviciosRest.setDatosProducto();
+                serviciosRest.getDatosProductoCat();
+                serviciosRest.getTextoBuscar();
+            });
+
         }
 
         function buscarProductosVentas(idProducto) {
@@ -155,7 +164,7 @@
                 };
             } else {
                 var mapa = {
-                    pcTextBuscar: (productoCtrl.buscar.textBuscar?productoCtrl.buscar.textBuscar:null),
+                    pcTextBuscar: (productoCtrl.busqueda.textBuscar?productoCtrl.busqueda.textBuscar:null),
                     pcRangoPrecioAl: productoCtrl.busqueda.rangoPreciosAl,
                     pcRangoPrecioDe: productoCtrl.busqueda.rangoPreciosDe
                 };
