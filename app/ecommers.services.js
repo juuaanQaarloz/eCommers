@@ -5,10 +5,10 @@
         .module('eCommers')
         .factory('serviciosRest', serviciosRest);
 
-    serviciosRest.$inject = ['$http', '$log', '$window', '$resource', 'urlServicios'];
+    serviciosRest.$inject = ['$http', '$log', '$window', '$resource', 'urlServicios', 'alertasServicios'];
 
     /* @ngInject */
-    function serviciosRest($http, $log, $window, $resource, urlServicios) {
+    function serviciosRest($http, $log, $window, $resource, urlServicios, alertasServicios) {
 
         var store = $window.localStorage;
         var llave = 'at-finance';
@@ -56,6 +56,52 @@
             }
         });
 
+        var pdfGenerico =  $resource( urlServicios + 'pdf/pdfGenerico', {}, {
+            generarPdf: {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                params: {
+                    pnId: '@pnId',
+                    nombrePdf: '@nombrePdf'
+                }
+            }
+        });
+
+        var metrica =  $resource(urlServicios +'metricas/:servicio', {servicio: "@servicio"}, {
+            metricaUno: {
+                method: 'POST', headers: {'Content-Type': 'application/json'}, isArray: 'true'
+            },
+            metricaDos: {
+                method: 'POST', headers: {'Content-Type': 'application/json'}, isArray: 'true'
+            }
+        });
+
+        var descargarPdf =  $resource( urlServicios + 'pdf/pdfDescargar', {}, {
+            pdf: {
+                method: 'POST', headers: {'Content-Type': 'application/json', accept: 'application/pdf'},
+                params: {
+                    pcURI: '@pcURI',
+                    pcNombre: '@pcNombre'
+                },
+                responseType: 'arraybuffer',
+                cache: false,
+                transformResponse: function (data, headers) {
+                    var pdf = null;
+                    if (data) {
+                        pdf = new Blob([data], {
+                            type: 'application/pdf'
+                        });
+                    }
+                    var result = {
+                        blob: pdf
+                    };
+
+                    return {
+                        response: result
+                    };
+                }
+            }
+        });
+
         var servicios = {
             setT: setT,
             validarDato: validarDato,
@@ -80,7 +126,10 @@
             setDatosProductoCat: setDatosProductoCat,
             getDatosProductoCat: getDatosProductoCat,
             crudTblVenta: crudTblVenta,
-            replaceAll: replaceAll
+            replaceAll: replaceAll,
+            generarPdf: generarPdf,
+            getMetricaVentaPorDepartamento: getMetricaVentaPorDepartamento,
+            getMetricaVentaPorProducto: getMetricaVentaPorProducto,
         };
         return servicios;
 
@@ -165,7 +214,6 @@
             return serviciosJava.crudTblVenta({servicio: "crudVenta"}, parametros);
         }
 
-
         function validarDato(valor) {
             var bandera = false;
             if (valor != undefined && valor != null && valor != '') {
@@ -173,7 +221,6 @@
             }
             return bandera;
         }
-
 
         function subirArchivoGenerico(ruta, imagen, metodo, codNodo) {
             var fd = new FormData();
@@ -188,6 +235,60 @@
 
         function replaceAll(str, find, replace) {
             return str.replace(new RegExp(find, 'g'), replace);
+        }
+
+        function generarPdf( idGenerico, nombrePdf, correo) {
+            var parametros = {
+                pnId: idGenerico,
+                nombrePdf: nombrePdf
+            };
+            var promesa = pdfGenerico.generarPdf({servicio: 'generarPdf'}, parametros).$promise;
+            promesa.then(function (respuesta) {
+                if (correo != "S") {
+                    var parametros = {
+                        pcURI: respuesta.ruta + respuesta.nombre + '.pdf',
+                        pcNombre: respuesta.nombre
+                    };
+                    var promesaObtener = descargarPdf.pdf({}, parametros).$promise;
+                    promesaObtener.then(function (datos) {
+                        var blob = datos.response.blob;
+                        ($window).saveAs(blob, respuesta.nombre + '.pdf');
+                        borrarPdf(respuesta.ruta + respuesta.nombre + '.pdf');
+                    });
+                    promesaObtener.catch(function (error) {
+                        alertasServicios.desplegarError(error);
+                    });
+                } else {
+                    alertasServicios.desplegarSuccess("Correo enviado");
+                }
+            });
+            promesa.catch(function (error) {
+                alertasServicios.desplegarMensaje(error);
+            });
+
+        }
+
+        function borrarPdf(nombrePDF) {
+            var borrarParametros = {
+                pnId: nombrePDF,
+                nombrePdf: "delete"
+            };
+            var borrarPdf = pdfGenerico.generarPdf({servicio: 'obtenerPdf'}, borrarParametros).$promise;
+            borrarPdf.then(function (respuesta) {
+                $log.info("se elimino el pdf");
+            });
+            borrarPdf.catch(function (error) {
+                alertasServicios.desplegarMensaje(error);
+            });
+        }
+
+
+        function getMetricaVentaPorDepartamento(parametros) {
+            return metrica.metricaUno({servicio: "getVentasMetrica"}, parametros);
+        }
+
+        function getMetricaVentaPorProducto(parametros) {
+            return metrica.metricaDos({servicio: "getVentasMetricaProducto"}, parametros);
         }
 
     }

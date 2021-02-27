@@ -182,6 +182,21 @@
             var nameImagen = angular.copy(categoriaCtrl.archivoProducto.name);
             var nombrePromocion = angular.copy(categoriaCtrl.nuevaProducto.nombreProducto);
 
+            var mapas = {
+                ID_PRODUCTO: 0,
+                ID_CATEGORIA: categoriaCtrl.categoriaSeleccionado.idCategoria,
+                ORDEN: categoriaCtrl.nuevaProducto.orden,
+                NOMBREPRODUCTO: categoriaCtrl.nuevaProducto.nombreProducto,
+                DESCRIPCION: categoriaCtrl.nuevaProducto.descripcionProducto,
+                NO_EXISTENCIAS: categoriaCtrl.nuevaProducto.noExistencias,
+                NO_VENDIDAS: 0,
+                IMAGEN: (categoriaCtrl.archivoProducto?categoriaCtrl.archivoProducto.name:"SN"),
+                INDVIGENTE: (categoriaCtrl.nuevaProducto.indVigente?categoriaCtrl.nuevaProducto.indVigente:'N'),
+                PRECIO: categoriaCtrl.nuevaProducto.precio,
+                IND_TALLA: (categoriaCtrl.nuevaProducto.indTalla?categoriaCtrl.nuevaProducto.indTalla:'N'),
+                IND_COLOR: (categoriaCtrl.nuevaProducto.indColor?categoriaCtrl.nuevaProducto.indColor:'N')
+            };
+
             var mapa = 0 + ",";
             mapa += categoriaCtrl.categoriaSeleccionado.idCategoria + ",";
             mapa += categoriaCtrl.nuevaProducto.orden + ",";
@@ -192,6 +207,9 @@
             mapa += (categoriaCtrl.archivoProducto?categoriaCtrl.archivoProducto.name:"SN") + ",";
             mapa += (categoriaCtrl.nuevaProducto.indVigente?categoriaCtrl.nuevaProducto.indVigente:'N') + ",";
             mapa += categoriaCtrl.nuevaProducto.precio;
+            mapa += (categoriaCtrl.nuevaProducto.indTalla?categoriaCtrl.nuevaProducto.indTalla:'N');
+            mapa += (categoriaCtrl.nuevaProducto.indColor?categoriaCtrl.nuevaProducto.indColor:'N');
+
             var datosMapa = {
                 pcAccion:  "INSERT",
                 pcTextoAdd:  mapa

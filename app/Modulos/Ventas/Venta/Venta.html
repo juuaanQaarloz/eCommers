@@ -1,4 +1,9 @@
 <div class="row">
+
+<!--
+    <button ng-click="ventaCtrl.generarPDF()"> pdf </button>
+-->
+
     <div class="col-sm-12" style="margin-top: 35px">
         <div class="col-sm-12 text-center wrapper">
             <p class="slogan"><span class="span-titulos">COMPRAR PRODUCTO</span></p>
@@ -110,6 +115,39 @@
                                     <label>Precio</label>
                                     <div >
                                         {{ventaCtrl.producto.precio | number}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"
+                                 ng-if="ventaCtrl.producto.indColor || ventaCtrl.producto.indTalla">
+                                <div class="col-sm-6" ng-if="ventaCtrl.producto.indTalla">
+                                    <label>Talla</label>
+                                    <div >
+                                        <select class="form-control" name="talla"
+                                                ng-required="true" style="width: 100%"
+                                                xs-validate-text-kendo-combo-box kendo-combo-box
+                                                k-options="ventaCtrl.cbxTalla"
+                                                k-data-source="ventaCtrl.tallas"
+                                                ng-model="ventaCtrl.nuevaVenta.talla"
+                                                k-ng-model="ventaCtrl.talla"
+                                                ng-class="{'error-combo': form.talla.$invalid,
+                                                           'success-combo': form.talla.$valid}">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6" ng-if="ventaCtrl.producto.indColor">
+                                    <label>Color</label>
+                                    <div >
+                                        <select class="form-control" name="color"
+                                                ng-required="true" style="width: 100%"
+                                                xs-validate-text-kendo-combo-box kendo-combo-box
+                                                k-options="ventaCtrl.cbxColor"
+                                                k-data-source="ventaCtrl.colores"
+                                                ng-model="ventaCtrl.nuevaVenta.color"
+                                                k-ng-model="ventaCtrl.color"
+                                                ng-class="{'error-combo': form.color.$invalid,
+                                                           'success-combo': form.color.$valid}">
+                                        </select>
                                     </div>
                                 </div>
                             </div>

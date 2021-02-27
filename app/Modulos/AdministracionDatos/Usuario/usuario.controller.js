@@ -23,6 +23,10 @@
             {tipo: "Comprador", idTipo: "C"}
         ];
 
+        usuarioCtrl.fechaIni = {
+            format: "dd/MM/yyyy"
+        };
+
         /** Obtener configuracion de Tabla **/
         usuarioCtrl.tblUsuarios = tblsServicios.getTabla('tblsGenerales', 'tblUsuarios');
 

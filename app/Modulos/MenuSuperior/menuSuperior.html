@@ -43,6 +43,11 @@
                             <i class="ixs ixs-aplicaciones" style="font-size: 15px;color: #274488;"></i>
                             Administración de Pagina
                         </a>
+                        <a ng-click="menuSuperiorCtrl.irMetrica();"
+                           ng-if="$root.usuarioSesion.tipoUsuario == 'A'">
+                            <i class="ixs ixs-aplicaciones" style="font-size: 15px;color: #274488;"></i>
+                            Métricas
+                        </a>
                         <a ng-click="menuSuperiorCtrl.abrirCerrarSesion();">
                             <i class="ixs ixs-tacha" style="font-size: 15px;color: #274488;"></i>
                             Cerrar Sesión

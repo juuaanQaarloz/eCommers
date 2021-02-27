@@ -17,15 +17,17 @@
         activarControlador();
 
         function activarControlador() {
-            if(!$rootScope.usuarioSesion || $rootScope.usuarioSesion.tipoUsuario != 'A') {
-                alertasServicios.desplegarMensaje("Tú no puedes acceder a esta opción no eres un adminsitrador de sistema");
-                $timeout(function () {
-                    $location.path('/inicio');
-                }, 500)
-            } else {
-                administracionDatosCtrl.mostrarSecciones = true;
-                administracionDatosCtrl.tabSeleccionada = 1;
-            }
+            $timeout(function () {
+                if(!$rootScope.usuarioSesion || $rootScope.usuarioSesion.tipoUsuario != 'A') {
+                    alertasServicios.desplegarMensaje("Tú no puedes acceder a esta opción no eres un adminsitrador de sistema");
+                    $timeout(function () {
+                        $location.path('/inicio');
+                    }, 500)
+                } else {
+                    administracionDatosCtrl.mostrarSecciones = true;
+                    administracionDatosCtrl.tabSeleccionada = 1;
+                }
+            }, 1000);
         }
 
     }

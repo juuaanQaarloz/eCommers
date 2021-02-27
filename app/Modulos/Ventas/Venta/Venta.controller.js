@@ -29,6 +29,33 @@
             }
         }, true);
 
+        ventaCtrl.cbxColor = {
+            placeholder: "Seleccione",
+            dataTextField: "tipo",
+            dataValueField: "idTipo"
+        };
+        ventaCtrl.colores = [
+            {tipo: "Amarillo", idTipo: "A"},
+            {tipo: "Azul", idTipo: "AZ"},
+            {tipo: "Verde", idTipo: "V"},
+            {tipo: "Rojo", idTipo: "R"},
+            {tipo: "Negro", idTipo: "N"},
+            {tipo: "Verde", idTipo: "V"}
+        ];
+
+        ventaCtrl.cbxTalla = {
+            placeholder: "Seleccione",
+            dataTextField: "tipo",
+            dataValueField: "idTipo"
+        };
+        ventaCtrl.tallas = [
+            {tipo: "Extra Chica", idTipo: "EC"},
+            {tipo: "Chica", idTipo: "C"},
+            {tipo: "Mediana", idTipo: "M"},
+            {tipo: "Grande", idTipo: "G"},
+            {tipo: "Extra Grande", idTipo: "XG"}
+        ];
+
         activarControlador();
 
         ventaCtrl.iniciarSesion = iniciarSesion;
@@ -107,7 +134,9 @@
                     mapa += (ventaCtrl.nuevaVenta.ciudad?ventaCtrl.nuevaVenta.ciudad:null) + ",";
                     mapa += (ventaCtrl.nuevaVenta.estado?ventaCtrl.nuevaVenta.estado:null) + ",";
                     mapa += (ventaCtrl.nuevaVenta.pais?ventaCtrl.nuevaVenta.pais:null) + ",";
-                    mapa += ventaCtrl.nuevaVenta.referencia + " Fec Ref " + $filter('fechaSimple')(new Date);
+                    mapa += ventaCtrl.nuevaVenta.referencia + " Fec Ref " + $filter('fechaSimple')(new Date) + ",";
+                    mapa += (ventaCtrl.nuevaVenta.talla?ventaCtrl.nuevaVenta.talla:null) + ",";
+                    mapa += (ventaCtrl.nuevaVenta.color?ventaCtrl.nuevaVenta.color:null);
 
                     var idVenta = ventaCtrl.nuevaVenta.referencia + " Fec Ref " + $filter('fechaSimple')(new Date);
 
@@ -167,7 +196,20 @@
 
         function generarPDF() {
             $log.info("Entra a metodo generarPDF() de CotizadorControlador");
-            var htmlcontentMdl = angular.element('#pdf-recibo-compra');
+
+            serviciosRest.generarPdf( ventaCtrl.ventaCompletada[0].idVenta + "|" +
+                                      $rootScope.usuarioSesion.nombreUsuario,
+                                      'repVentaConfirmada');
+            $timeout(function (){
+                angular.element("#mdlVentaCompletada").modal("hide");
+                $timeout(function () {
+                    $location.path('/producto');
+                }, 1000);
+            }, 2000);
+
+            //serviciosRest.generarPdf( 17 + "| JUAN CARLOS NUTE HERNANDEZ"  , 'repVentaConfirmada');
+
+            /*var htmlcontentMdl = angular.element('#pdf-recibo-compra');
             var contentMdl = '<html>';
             contentMdl += '<style>@media print {  html {  zoom: ';
             contentMdl += 100;
@@ -193,7 +235,7 @@
                         $location.path('/producto');
                     }, 1000);
                 },500);
-            },100);
+            },100);*/
 
         }
 

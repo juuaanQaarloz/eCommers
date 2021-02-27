@@ -29,6 +29,11 @@
             controller: 'Venta',
             controllerAs: 'ventaCtrl'
         });
+        $routeProvider.when('/metricas', {
+            templateUrl: 'Modulos/Ventas/Metricas/Metricas.html',
+            controller: 'Metricas',
+            controllerAs: 'metricasCtrl'
+        });
 
         $routeProvider.otherwise({redirectTo: '/inicio'});
 

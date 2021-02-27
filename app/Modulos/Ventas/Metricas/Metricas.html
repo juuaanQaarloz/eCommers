@@ -1,0 +1,132 @@
+<div class="row" style="padding: 2% 10%">
+
+    <div class="col-sm-12 text-center wrapper" style="margin-top: 40px">
+        <p class="slogan"><span class="span-titulos">MÉTRICA DE VENTAS</span></p>
+    </div>
+
+    <div class="col-sm-12"
+         ng-if="metricasCtrl.mostrarSecciones"
+         style="margin-top: 15px; margin-bottom: 80px">
+        <div class="panel panel-default">
+            <div class="panel-heading"
+                 style="padding: 10px 15px; background-color: black; color: white">
+                <b>Busqueda Avanzada</b>
+            </div>
+            <div class="panel-body">
+
+                <form name="form" novalidate>
+                    <div class="col-sm-12" >
+                        <div class="col-sm-2">
+                            <div><label><b>Fecha Al:</b></label></div>
+                            <div>
+                                <input type="date" name="fechaAl"
+                                       style="height: 25px;"
+                                       ng-model="metricasCtrl.busqueda.fecAl">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Departamento</label>
+                            <select class="form-control" name="categoria"
+                                    style="width: 100%"
+                                    xs-validate-text-kendo-combo-box kendo-combo-box
+                                    k-options="metricasCtrl.cbxCategorias"
+                                    k-data-source="metricasCtrl.categorias"
+                                    ng-model="metricasCtrl.busqueda.categoria"
+                                    k-ng-model="metricasCtrl.categoria"
+                                    k-on-change="metricasCtrl.consultarProductos(metricasCtrl.busqueda.categoria)"
+                                    ng-class="{'error-combo': form.categoria.$invalid,
+                                               'success-combo': form.categoria.$valid}">
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label>Producto</label>
+                            <select class="form-control" name="producto"
+                                    style="width: 100%"
+                                    xs-validate-text-kendo-combo-box kendo-combo-box
+                                    k-options="metricasCtrl.cbxProductos"
+                                    k-data-source="metricasCtrl.productosActivos"
+                                    ng-model="metricasCtrl.busqueda.producto"
+                                    k-ng-model="metricasCtrl.producto"
+                                    ng-class="{'error-combo': form.producto.$invalid,
+                                               'success-combo': form.producto.$valid}">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 pull-right text-right"
+                         style="margin-bottom: 10px; margin-top: 10px">
+                        <div style="height: 35px; font-size: 15px; display:inline-block; width: 15%"
+                             ng-if="metricasCtrl.busqueda.fecAl || metricasCtrl.busqueda.producto ||
+                                    metricasCtrl.busqueda.categoria">
+                            <button class="buttonAceptar"
+                                    style="display: inline-block"
+                                    ng-click="metricasCtrl.buscar()">
+                                <span>{{"BUSCAR"}}</span>
+                            </button>
+                        </div>
+                        <div style="height: 35px; font-size: 15px; display:inline-block; width: 15%">
+                            <button class="buttonAceptar" style="display: inline-block"
+                                    ng-click="metricasCtrl.limpiar()">
+                                <span>{{"LIMPIAR"}}</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="col-sm-12" ng-if="metricasCtrl.bndHTML">
+        <div class="col-sm-4" style="padding: 0">
+            <div class="col-sm-8" style="margin-top: 3px;padding: 0;">
+                <span style="font-size: 15px">&nbsp;&nbsp;&nbsp;<b>POR DEPARTAMENTO</b></span>
+            </div>
+            <div class="col-sm-4" style="padding: 0">
+                <label for="rdo-1" class="btn-radio">
+                    <input type="radio" id="rdo-1" name="radio-grp" value="1"
+                           ng-model="metricasCtrl.tipoDeGrafica"
+                           ng-click="metricasCtrl.buscar()">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <circle cx="10" cy="10" r="9"></circle>
+                        <path d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                              class="inner"></path>
+                        <path d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                              class="outer"></path>
+                    </svg>
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-3" style="padding: 0">
+            <div class="col-sm-8" style="margin-top: 3px;padding: 0;">
+                <span style="font-size: 15px">&nbsp;&nbsp;&nbsp;<b>POR PRODUCTO</b></span>
+            </div>
+            <div class="col-sm-4" style="padding: 0">
+                <label for="rdo-2" class="btn-radio">
+                    <input type="radio" id="rdo-2" name="radio-grp" value="2"
+                           ng-model="metricasCtrl.tipoDeGrafica"
+                           ng-click="metricasCtrl.buscarP()">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                        <circle cx="10" cy="10" r="9"></circle>
+                        <path d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                              class="inner"></path>
+                        <path d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                              class="outer"></path>
+                    </svg>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12" ng-if="metricasCtrl.bndHTML"
+         ng-show="metricasCtrl.tipoDeGrafica == 1" style="margin-top: 15px">
+        <div id="chartdiv" style="height: 300px"></div>
+    </div>
+    <div class="col-sm-12" ng-if="metricasCtrl.bndHTML"
+         ng-show="metricasCtrl.tipoDeGrafica == 2" style="margin-top: 15px">
+        <div id="chartdivProd" style="height: 300px"></div>
+    </div>
+
+</div>

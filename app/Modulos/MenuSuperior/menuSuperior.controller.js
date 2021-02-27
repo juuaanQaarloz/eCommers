@@ -40,6 +40,7 @@
 
         menuSuperiorCtrl.irAPortal = irAPortal;
         menuSuperiorCtrl.irAdminPantalla = irAdminPantalla;
+        menuSuperiorCtrl.irMetrica = irMetrica;
         menuSuperiorCtrl.mdlLogin = mdlLogin;
         menuSuperiorCtrl.login = login;
         menuSuperiorCtrl.mdlVentasUsuario = mdlVentasUsuario;
@@ -113,6 +114,10 @@
 
         function irAdminPantalla() {
             $location.path('/mntAdministracionDatos');
+        }
+
+        function irMetrica() {
+            $location.path('/metricas');
         }
 
         function mdlLogin() {
